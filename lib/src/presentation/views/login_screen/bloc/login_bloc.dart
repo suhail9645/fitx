@@ -1,0 +1,24 @@
+import 'dart:async';
+
+import 'package:bloc/bloc.dart';
+import 'package:fitx/src/data/repositories/local/admin.dart';
+import 'package:meta/meta.dart';
+
+part 'login_event.dart';
+part 'login_state.dart';
+
+class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  LoginBloc() : super(LoginInitial()) {
+    on<LoginButtonClicked>(loginButtonClicked);
+  }
+
+  FutureOr<void> loginButtonClicked(LoginButtonClicked event, Emitter<LoginState> emit)async {
+    // emit(LoginLoadingState());
+  bool isAdmin=await AdminLoginFunctions.adminLogin(event.userName,event.password);
+  if(isAdmin){
+   emit(LoginSuccessState());
+  }else{
+  emit(LoginErrorState());
+  }
+  }
+}

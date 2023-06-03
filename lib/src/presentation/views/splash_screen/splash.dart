@@ -2,6 +2,8 @@ import 'package:fitx/src/config/constants/strings.dart';
 import 'package:fitx/src/config/constants/sized_box.dart';
 import 'package:flutter/material.dart';
 
+import '../../widgets/logo.dart';
+
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
   @override
@@ -31,15 +33,7 @@ class SplashScreen extends StatelessWidget {
             child: Row(
               
             children: [
-              Container(
-                height: screenHeight / 20,
-                width: screenHeight / 22,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            'https://w7.pngwing.com/pngs/1020/627/png-transparent-bicep-muscle-emoticon-arm-biceps-emoji-muscle-hand-people-human-body.png'),
-                        fit: BoxFit.cover)),
-              ),
+              AppLogo(screenHeight: screenHeight),
               spaceforwidth10,
               const Column(
                 children: [
@@ -54,3 +48,4 @@ class SplashScreen extends StatelessWidget {
         ));
   }
 }
+
