@@ -13,7 +13,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   FutureOr<void> loginButtonClicked(LoginButtonClicked event, Emitter<LoginState> emit)async {
-    // emit(LoginLoadingState());
+    emit(LoginLoadingState());
   bool isAdmin=await AdminLoginFunctions.adminLogin(event.userName,event.password);
   if(isAdmin){
    emit(LoginSuccessState());

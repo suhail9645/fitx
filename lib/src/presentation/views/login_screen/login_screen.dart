@@ -1,0 +1,12 @@
+export 'package:fitx/main.dart';
+export 'package:fitx/src/config/constants/colors.dart';
+export 'package:fitx/src/config/constants/sized_box.dart';
+export 'package:fitx/src/config/constants/strings.dart';
+export 'package:fitx/src/presentation/views/home_screen/home.dart';
+export 'package:fitx/src/presentation/views/login_screen/widget/custom_paint.dart';
+export 'package:fitx/src/presentation/widgets/logo.dart';
+export 'package:flutter/material.dart';
+export 'package:flutter_bloc/flutter_bloc.dart';
+export 'login_screen.dart';
+export '../../widgets/textFormField.dart';
+export 'bloc/login_bloc.dart';

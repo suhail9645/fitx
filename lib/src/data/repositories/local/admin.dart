@@ -6,7 +6,6 @@ class AdminLoginFunctions{
    if(userName==dotenv.env['USERNAME']&&password==dotenv.env['PASSWORD']){
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('admin', true);
-    await Future.delayed(Duration(seconds: 5));
     return true;
    }else{
     return false;

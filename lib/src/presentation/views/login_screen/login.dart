@@ -1,13 +1,5 @@
-import 'package:fitx/main.dart';
-import 'package:fitx/src/config/constants/colors.dart';
-import 'package:fitx/src/config/constants/sized_box.dart';
-import 'package:fitx/src/config/constants/strings.dart';
-import 'package:fitx/src/presentation/views/home_screen/home.dart';
-import 'package:fitx/src/presentation/widgets/logo.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../widgets/textFormField.dart';
-import 'bloc/login_bloc.dart';
+
+import 'login_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -118,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('error')));
                }
                else if(state is LoginSuccessState){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) =>const HomeScreen(),));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>const HomeScreen(),));
                }
               },
               builder: (context, state) {
@@ -137,7 +129,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   label:state is !LoginLoadingState?  const Icon(
                     Icons.arrow_right,
-                  ):const CircularProgressIndicator(),
+                  ):const SizedBox(height: 15,width: 15, child:  CircularProgressIndicator(strokeWidth: 3,)),
                 );
               },
             ),
@@ -148,25 +140,3 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class RPSCustomPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint0 = Paint()
-      ..color = const Color.fromARGB(255, 27, 25, 25)
-      ..style = PaintingStyle.fill;
-
-    Path path0 = Path();
-    path0.moveTo(size.width, size.height * 0.9984125);
-    path0.lineTo(size.width * 0.0057143, size.height * 0.9983042);
-    path0.lineTo(size.width, size.height * 0.5415755);
-    path0.lineTo(size.width, size.height * 0.9984125);
-    path0.close();
-
-    canvas.drawPath(path0, paint0);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
-  }
-}
