@@ -5,8 +5,13 @@ enum ButtonCategory {
   addCategory,
   deletCategory,
   addCategoryImage,
-  saveCategory
+  saveCategory,
+  logoutAdmin,
+  confirmLogoutAdmin,
+  cancelLogoutAdmin,
+  addExerciceGif,
+  saveExercice,
+  hireTrainer
 }
-enum AlertDialogCategory{
-  deleteExercice,deleteCategory
-}
+
+enum AlertDialogCategory { deleteExercice, deleteCategory }

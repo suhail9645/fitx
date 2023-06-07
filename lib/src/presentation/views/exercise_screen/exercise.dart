@@ -1,4 +1,5 @@
 import 'package:fitx/src/config/constants/colors.dart';
+import 'package:fitx/src/presentation/views/exercice_add_screen/execice_add.dart';
 import 'package:flutter/material.dart';
 
 class ExercisScreen extends StatelessWidget {
@@ -52,7 +53,7 @@ class ExercisScreen extends StatelessWidget {
         ),
       )),
       floatingActionButton: FloatingActionButton(backgroundColor: primaryColor, onPressed: () {
-        
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ExerciceAddPage(),));
       },child:const Icon(Icons.add,color: Colors.black,),
       ),
     );

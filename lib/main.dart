@@ -1,4 +1,7 @@
+
+import 'package:fitx/src/presentation/views/admin_profil/bloc/admin_bloc.dart';
 import 'package:fitx/src/presentation/views/category_add_screen/bloc/categoryadd_bloc.dart';
+import 'package:fitx/src/presentation/views/exercice_add_screen/bloc/exercice_add_bloc.dart';
 import 'package:fitx/src/presentation/views/exercise_screen/bloc/exercice_bloc.dart';
 import 'package:fitx/src/presentation/views/home_screen/cubit/home_cubit.dart';
 import 'package:fitx/src/presentation/views/image_screen/bloc/image_bloc.dart';
@@ -22,7 +25,8 @@ HomeCubit homeCubit = HomeCubit();
 ImageBloc imageBloc=ImageBloc();
 CategoryaddBloc categoryaddBloc=CategoryaddBloc();
 ExerciceBloc exerciceBloc =ExerciceBloc();
-
+AdminBloc adminBloc =AdminBloc();
+ExerciceAddBloc exerciceAddBloc=ExerciceAddBloc();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -47,6 +51,11 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => exerciceBloc,
+        ),
+        BlocProvider(
+          create: (context) => adminBloc,
+        ),BlocProvider(
+          create: (context) => exerciceAddBloc,
         )
       ],
       child: MaterialApp(
