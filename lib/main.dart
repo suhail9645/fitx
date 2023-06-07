@@ -1,7 +1,8 @@
+import 'package:fitx/src/presentation/views/category_add_screen/bloc/categoryadd_bloc.dart';
+import 'package:fitx/src/presentation/views/exercise_screen/bloc/exercice_bloc.dart';
 import 'package:fitx/src/presentation/views/home_screen/cubit/home_cubit.dart';
 import 'package:fitx/src/presentation/views/image_screen/bloc/image_bloc.dart';
 import 'package:fitx/src/presentation/views/login_screen/bloc/login_bloc.dart';
-import 'package:fitx/src/presentation/views/login_screen/login.dart';
 import 'package:fitx/src/presentation/views/splash_screen/bloc/splash_bloc.dart';
 import 'package:fitx/src/presentation/views/splash_screen/splash.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ LoginBloc loginBloc = LoginBloc();
 SplashBloc splashBloc = SplashBloc();
 HomeCubit homeCubit = HomeCubit();
 ImageBloc imageBloc=ImageBloc();
+CategoryaddBloc categoryaddBloc=CategoryaddBloc();
+ExerciceBloc exerciceBloc =ExerciceBloc();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -38,6 +41,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => imageBloc,
+        ),
+          BlocProvider(
+          create: (context) => categoryaddBloc,
+        ),
+        BlocProvider(
+          create: (context) => exerciceBloc,
         )
       ],
       child: MaterialApp(

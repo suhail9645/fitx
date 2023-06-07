@@ -1,4 +1,3 @@
-
 import 'image_screen.dart';
 
 class ImageScreen extends StatelessWidget {
@@ -22,37 +21,40 @@ class ImageScreen extends StatelessWidget {
                           height: screenHeight / 3.5,
                           width: screenHeight / 2.6,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              image: DecorationImage(
-                                  image: state is! AddImageState
-                                      ? const NetworkImage(imageAddPageImage)
-                                      : FileImage(state.image) as ImageProvider,
-                                  fit: BoxFit.cover)),
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                                image: state is! AddImageState
+                                    ? const NetworkImage(imageAddPageImage)
+                                    : FileImage(state.image) as ImageProvider,
+                                fit: BoxFit.cover),
+                          ),
                         ),
                       ],
                     ),
                     spaceforHeight20,
-                 state is !AddImageState?Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        PrimartButtonWithoutIcon(
-                          screenHeight: screenHeight,
-                            category: ButtonCategory.add,
-                        )
-                      ],
-                    ):Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        PrimartButtonWithoutIcon(
-                          screenHeight: screenHeight,
-                            category: ButtonCategory.edit,
-                        ),
-                        PrimartButtonWithoutIcon(
-                          screenHeight: screenHeight,
-                          category: ButtonCategory.save,
-                        )
-                      ],
-                    ),
+                    state is! AddImageState
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              PrimartButtonWithoutIcon(
+                                screenHeight: screenHeight,
+                                category: ButtonCategory.add,
+                              )
+                            ],
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              PrimartButtonWithoutIcon(
+                                screenHeight: screenHeight,
+                                category: ButtonCategory.edit,
+                              ),
+                              PrimartButtonWithoutIcon(
+                                screenHeight: screenHeight,
+                                category: ButtonCategory.save,
+                              )
+                            ],
+                          ),
                   ],
                 );
               },

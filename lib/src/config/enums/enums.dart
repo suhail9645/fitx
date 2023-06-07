@@ -1,3 +1,12 @@
-enum ButtonCategory{
-  add,save,edit,addCategory
+enum ButtonCategory {
+  add,
+  save,
+  edit,
+  addCategory,
+  deletCategory,
+  addCategoryImage,
+  saveCategory
+}
+enum AlertDialogCategory{
+  deleteExercice,deleteCategory
 }

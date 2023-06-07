@@ -86,12 +86,12 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             children: [
               CustomTextFormField(
-                userName: userName,
+                controller: userName,
                 hint: 'Username',
                 obscureText: false,
               ),
               CustomTextFormField(
-                userName: password,
+                controller: password,
                 hint: 'Password',
                 obscureText: true,
               ),

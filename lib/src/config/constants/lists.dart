@@ -16,3 +16,15 @@ const List<String> pagesNames = [
   'EXERCISES',
   'TRAINER'
 ];
+
+final TextEditingController categoryName = TextEditingController();
+final TextEditingController description = TextEditingController();
+final TextEditingController music = TextEditingController();
+
+final List<TextEditingController> categoryAddPageTextEditingControllers = [
+  categoryName,
+   description,
+  music
+];
+
+const List<String>categoryAddPageTextEditingControllerHint=['Category name','Description','music Url'];
