@@ -37,7 +37,8 @@ dependencies:
   flutter_gif: ^0.0.4
   flutter_native_splash: ^2.3.0
   flutter_slidable: ^3.0.0
-  google_fonts: 
+  google_fonts: null
+  http: ^1.0.0
   image_cropper: ^1.5.1
   image_picker: ^0.8.7+5
   shared_preferences: ^2.1.1

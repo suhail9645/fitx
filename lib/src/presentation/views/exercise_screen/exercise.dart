@@ -24,7 +24,7 @@ class ExercisScreen extends StatelessWidget {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: NetworkImage(
-                        'https://media.giphy.com/media/J47Vkh2p67L0ufw0Re/giphy.gif'),
+                        'https://i.pinimg.com/originals/3a/1a/76/3a1a769470d2d3d12d0c3ff2eaf6899d.gif'),
                     fit: BoxFit.fill),
               ),
             ),

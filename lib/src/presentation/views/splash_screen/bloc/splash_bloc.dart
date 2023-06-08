@@ -14,7 +14,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   FutureOr<void> splashInitialEvent(SplashInitialEvent event, Emitter<SplashState> emit) async{
     await Future.delayed(const Duration(seconds: 3));
     SharedPreferences preferences=await SharedPreferences.getInstance();
-    bool? isLogin=preferences.getBool('admin');
+    bool? isLogin=preferences.getString('access')?.isEmpty;
     if(isLogin==true){
        emit(AdminLoginState());
     }else{

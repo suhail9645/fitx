@@ -1,5 +1,9 @@
+import 'package:http/http.dart' as http;
+
+import 'dart:convert';
 
 import 'login_screen.dart';
+
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -106,30 +110,38 @@ class LoginScreen extends StatelessWidget {
           children: [
             BlocConsumer<LoginBloc, LoginState>(
               listener: (context, state) {
-               if(state is LoginErrorState){
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('error')));
-               }
-               else if(state is LoginSuccessState){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>const HomeScreen(),));
-               }
+                if (state is LoginErrorState) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(content: Text('error')));
+                } else if (state is LoginSuccessState) {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ));
+                }
               },
               builder: (context, state) {
-                
                 return ElevatedButton.icon(
                   style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(primaryColor)),
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       loginBloc.add(LoginButtonClicked(userName: userName.text, password: password.text));
                     }
                   },
-                  icon:  Text(
-                   state is !LoginLoadingState? 'Login':'Wait',
-                    style:const TextStyle(fontSize: 20),
+                  icon: Text(
+                    state is! LoginLoadingState ? 'Login' : 'Wait',
+                    style: const TextStyle(fontSize: 20),
                   ),
-                  label:state is !LoginLoadingState?  const Icon(
-                    Icons.arrow_right,
-                  ):const SizedBox(height: 15,width: 15, child:  CircularProgressIndicator(strokeWidth: 3,)),
+                  label: state is! LoginLoadingState
+                      ? const Icon(
+                          Icons.arrow_right,
+                        )
+                      : const SizedBox(
+                          height: 15,
+                          width: 15,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 3,
+                          )),
                 );
               },
             ),
@@ -139,4 +151,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-
