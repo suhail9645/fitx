@@ -5,8 +5,6 @@ abstract class SplashState {}
 
 class SplashInitial extends SplashState {}
 
-class AdminLoginState extends SplashState{}
+class AdminLoginState extends SplashState {}
 
-
-class AdminLogoutState extends SplashState{}
-
+class AdminLogoutState extends SplashState {}

@@ -1,16 +1,30 @@
+import 'package:fitx/main.dart';
+import 'package:fitx/src/presentation/views/image_screen/widget/alert_box.dart';
+import 'package:fitx/src/presentation/views/image_screen/widget/image_container.dart';
+import 'bloc/add_image_bloc.dart';
 import 'image_screen.dart';
 
 class ImageScreen extends StatelessWidget {
   const ImageScreen({super.key});
   @override
   Widget build(BuildContext context) {
+    imageBloc.add(ImageInitialEvent());
     Size screenSize = MediaQuery.of(context).size;
     double screenHeight = screenSize.height;
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            BlocBuilder<ImageBloc, ImageState>(
+            BlocConsumer<AddImageBloc, AddImageState>(
+              listener: (context, state) {
+                if (state is AfterImageSavedState) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Image successfully saved'),
+                    ),
+                  );
+                }
+              },
               builder: (context, state) {
                 return Column(
                   children: [
@@ -23,7 +37,7 @@ class ImageScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             image: DecorationImage(
-                                image: state is! AddImageState
+                                image: state is! AfterImageState
                                     ? const NetworkImage(imageAddPageImage)
                                     : FileImage(state.image) as ImageProvider,
                                 fit: BoxFit.cover),
@@ -32,7 +46,7 @@ class ImageScreen extends StatelessWidget {
                       ],
                     ),
                     spaceforHeight20,
-                    state is! AddImageState
+                    state is! AfterImageState
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -52,6 +66,7 @@ class ImageScreen extends StatelessWidget {
                               PrimartButtonWithoutIcon(
                                 screenHeight: screenHeight,
                                 category: ButtonCategory.save,
+                                image: state.image,
                               )
                             ],
                           ),
@@ -60,39 +75,43 @@ class ImageScreen extends StatelessWidget {
               },
             ),
             spaceforHeight20,
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                ),
-                itemBuilder: (context, index) => const ImageContainer(),
-                itemCount: 20,
-              ),
-            )
+            BlocConsumer<ImageBloc, ImageState>(listener: (context, state) {
+              if (state is SaveImageErrorState) {
+                showDialog(
+                  context: context,
+                  builder: (context) => const ImageAlert(),
+                );
+              } else if (state is DeleteImageSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('SuccessFully deleted the Image')));
+              }
+            }, builder: (context, state) {
+              if (state is ImageInitialState) {
+                return state.images.isNotEmpty
+                    ? Expanded(
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                          ),
+                          itemBuilder: (context, index) => ImageContainer(
+                            screenHeight: screenHeight,
+                            image: state.images[index],
+                          ),
+                          itemCount: state.images.length,
+                        ),
+                      )
+                    : const Center(
+                        child: Text('NO imges to show'),
+                      );
+              } else if (state is ImageLoadingState) {
+                return const Column(
+                  children: [Text('Please wait')],
+                );
+              }
+              return const SizedBox();
+            })
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class ImageContainer extends StatelessWidget {
-  const ImageContainer({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(3.0),
-      child: GestureDetector(
-        onLongPress: () {},
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              image: const DecorationImage(
-                  image: NetworkImage(
-                      'https://64.media.tumblr.com/e084702f3a1abb5675630e1e2e3c1151/5ec1554e06e45f0c-8f/s1280x1920/06185e92001e5fa03d57efdfc80ffb3735356026.png'))),
         ),
       ),
     );

@@ -9,11 +9,12 @@ part 'admin_state.dart';
 
 class AdminBloc extends Bloc<AdminEvent, AdminState> {
   AdminBloc() : super(AdminInitial()) {
-   on<AdminLogoutEvent>(adminLogoutEvent);
+    on<AdminLogoutEvent>(adminLogoutEvent);
   }
 
-  FutureOr<void> adminLogoutEvent(AdminLogoutEvent event, Emitter<AdminState> emit)async {
-      SharedPreferences preferences=await SharedPreferences.getInstance();
-     preferences.setBool('admin',false);
+  FutureOr<void> adminLogoutEvent(
+      AdminLogoutEvent event, Emitter<AdminState> emit) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool('admin', false);
   }
 }

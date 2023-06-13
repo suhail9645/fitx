@@ -25,6 +25,8 @@ final TextEditingController videoLink = TextEditingController();
 final TextEditingController timeOrCount = TextEditingController();
 final TextEditingController burnCalory = TextEditingController();
 final TextEditingController exerciceDescription = TextEditingController();
+final TextEditingController focused_area= TextEditingController();
+
 
 final List<TextEditingController> categoryAddPageTextEditingControllers = [
   categoryName,
@@ -42,6 +44,7 @@ final List<TextEditingController> exerciceAddPageTextEditingControllers = [
   exerciceDescription,
   videoLink,
   burnCalory,
+  focused_area,
   timeOrCount,
 ];
 
@@ -50,6 +53,7 @@ final List<String> exerciceAddPageTextEditingControllerHint = [
   'Description',
   'video Link',
   'burn Calory',
+  'focused area',
   'time or second',
 ];
 List<String> muscleList = [

@@ -2,6 +2,7 @@ enum ButtonCategory {
   add,
   save,
   edit,
+  deleteImage,
   addCategory,
   deletCategory,
   addCategoryImage,

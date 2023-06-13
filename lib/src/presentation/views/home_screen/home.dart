@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         final indexState = state as HomeInitial;
- 
+
         return Scaffold(
           appBar: AppBar(
             title: Text(pagesNames[indexState.index]),

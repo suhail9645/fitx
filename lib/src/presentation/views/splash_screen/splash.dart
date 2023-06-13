@@ -13,10 +13,14 @@ class SplashScreen extends StatelessWidget {
 
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) {
-        if(state is AdminLoginState){
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>const HomeScreen(),));
-        }else if(state is AdminLogoutState){
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen(),));
+        if (state is AdminLoginState) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ));
+        } else if (state is AdminLogoutState) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => LoginScreen(),
+          ));
         }
       },
       child: Scaffold(
@@ -45,7 +49,7 @@ class SplashScreen extends StatelessWidget {
                       Text(
                         'ENERGY & PERSISTENCE\nCONQUER ALL THINGS',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 17, fontWeight: FontWeight.bold),
                       ),
                     ],
                   )

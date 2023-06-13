@@ -9,8 +9,8 @@ import '../../widgets/textFormField.dart';
 import 'bloc/categoryadd_bloc.dart';
 
 class CategoryAddPage extends StatelessWidget {
-   CategoryAddPage({super.key});
- final _formKey = GlobalKey<FormState>();
+  CategoryAddPage({super.key});
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -52,7 +52,7 @@ class CategoryAddPage extends StatelessWidget {
                 category: ButtonCategory.addCategoryImage),
             spaceforHeight10,
             Form(
-              key:_formKey ,
+              key: _formKey,
               child: Column(
                 children: List.generate(
                   categoryAddPageTextEditingControllerHint.length,
@@ -95,8 +95,10 @@ class CategoryAddPage extends StatelessWidget {
             ),
             spaceforHeight20,
             PrimartButtonWithoutIcon(
-                screenHeight: screenHeight,
-                category: ButtonCategory.saveCategory,formKey: _formKey,),
+              screenHeight: screenHeight,
+              category: ButtonCategory.saveCategory,
+              formKey: _formKey,
+            ),
             spaceforHeight20,
           ],
         ),

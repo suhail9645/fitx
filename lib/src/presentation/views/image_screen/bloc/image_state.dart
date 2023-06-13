@@ -5,13 +5,16 @@ abstract class ImageState {}
 
 class ImageInitial extends ImageState {}
 
-class AddImageState extends ImageState{
-  final File image;
+class ImageInitialState extends ImageState {
+  final List<ImageModel> images;
 
-  AddImageState(this.image);
-
+  ImageInitialState({required this.images});
 }
 
-class SaveImageSuccessState extends ImageState{}
+class SaveImageSuccessState extends ImageState {}
 
-class SaveImageErrorState extends ImageState{}
+class SaveImageErrorState extends ImageState {}
+
+class ImageLoadingState extends ImageState {}
+
+class DeleteImageSuccess extends ImageState {}

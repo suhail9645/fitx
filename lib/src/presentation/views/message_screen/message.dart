@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../config/constants/colors.dart';
@@ -12,7 +11,7 @@ class MessageScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: primaryColor,
         title: const Text('Trainer 1'),
-        actions:const [
+        actions: const [
           CircleAvatar(
             backgroundImage: NetworkImage(
                 'https://leadership.ng/wp-content/uploads/2023/03/davido.png'),

@@ -4,7 +4,6 @@ import 'dart:convert';
 
 import 'login_screen.dart';
 
-
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final TextEditingController userName = TextEditingController();
@@ -125,7 +124,8 @@ class LoginScreen extends StatelessWidget {
                       backgroundColor: MaterialStatePropertyAll(primaryColor)),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      loginBloc.add(LoginButtonClicked(userName: userName.text, password: password.text));
+                      loginBloc.add(LoginButtonClicked(
+                          userName: userName.text, password: password.text));
                     }
                   },
                   icon: Text(

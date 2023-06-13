@@ -6,13 +6,14 @@ class AdminProfile extends StatelessWidget {
   const AdminProfile({super.key});
   @override
   Widget build(BuildContext context) {
-      Size screenSize = MediaQuery.of(context).size;
+    Size screenSize = MediaQuery.of(context).size;
     double screenHeight = screenSize.height;
     return Scaffold(
       appBar: AppBar(),
-      body:  SafeArea(
+      body: SafeArea(
           child: Center(
-        child: PrimartButtonWithoutIcon(screenHeight:screenHeight , category: ButtonCategory.logoutAdmin),
+        child: PrimartButtonWithoutIcon(
+            screenHeight: screenHeight, category: ButtonCategory.logoutAdmin),
       )),
     );
   }

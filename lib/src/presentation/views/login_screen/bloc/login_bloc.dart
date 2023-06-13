@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:fitx/src/data/repositories/local/admin.dart';
 import 'package:fitx/src/data/repositories/remote/admin/admin_login_imp.dart';
 import 'package:meta/meta.dart';
 
@@ -13,13 +11,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginButtonClicked>(loginButtonClicked);
   }
 
-  FutureOr<void> loginButtonClicked(LoginButtonClicked event, Emitter<LoginState> emit)async {
+  FutureOr<void> loginButtonClicked(
+      LoginButtonClicked event, Emitter<LoginState> emit) async {
     emit(LoginLoadingState());
-  bool isAdmin=await AdminLoginFunctionsImp().isAdmin(event.userName,event.password);
-  if(isAdmin){
-   emit(LoginSuccessState());
-  }else{
-  emit(LoginErrorState());
-  }
+    bool isAdmin =
+        await AdminLoginFunctionsImp().isAdmin(event.userName, event.password);
+    if (isAdmin) {
+      emit(LoginSuccessState());
+    } else {
+      emit(LoginErrorState());
+    }
   }
 }

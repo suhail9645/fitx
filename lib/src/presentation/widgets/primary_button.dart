@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:fitx/src/presentation/views/category_add_screen/bloc/categoryadd_bloc.dart';
 import 'package:fitx/src/presentation/views/category_add_screen/category_add_page.dart';
@@ -9,20 +10,24 @@ import '../../../main.dart';
 import '../../config/constants/colors.dart';
 import '../../config/enums/enums.dart';
 import '../views/admin_profil/bloc/admin_bloc.dart';
+import '../views/image_screen/bloc/add_image_bloc.dart';
 import '../views/image_screen/bloc/image_bloc.dart';
-
 
 class PrimartButtonWithoutIcon extends StatelessWidget {
   const PrimartButtonWithoutIcon(
       {super.key,
       required this.screenHeight,
       required this.category,
-      this.formKey});
+      this.formKey,
+      this.image,
+      this.id, this.groupValue});
 
   final double screenHeight;
   final ButtonCategory category;
   final GlobalKey<FormState>? formKey;
-
+  final File? image;
+  final int? id;
+  final String? groupValue;
   @override
   Widget build(BuildContext context) {
     double width = 0;
@@ -62,16 +67,18 @@ class PrimartButtonWithoutIcon extends StatelessWidget {
       width = 8;
       text = 'Yes';
       color = const Color.fromARGB(255, 233, 228, 94);
-    }else if (category == ButtonCategory.addExerciceGif) {
+    } else if (category == ButtonCategory.addExerciceGif) {
       width = 3;
       text = 'Add Gif';
-    }
-    else if (category == ButtonCategory.saveExercice) {
+    } else if (category == ButtonCategory.saveExercice) {
       width = 3;
       text = 'Save Exercice';
-    }else if (category == ButtonCategory.hireTrainer) {
+    } else if (category == ButtonCategory.hireTrainer) {
       width = 3;
-      text = 'Hire Trainer';   
+      text = 'Hire Trainer';
+    } else if (category == ButtonCategory.deleteImage) {
+      width = 6;
+      text = 'Delete';
     }
     return SizedBox(
       width: screenHeight / width,
@@ -80,13 +87,13 @@ class PrimartButtonWithoutIcon extends StatelessWidget {
         onPressed: () {
           if (category == ButtonCategory.add ||
               category == ButtonCategory.edit) {
-            imageBloc.add(AddImageButtonClickedEvent());
+            addImageBloc.add(AddImageButtonClickedEvent());
           } else if (category == ButtonCategory.addCategory) {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => CategoryAddPage(),
             ));
           } else if (category == ButtonCategory.addCategoryImage) {
-            categoryaddBloc.add(AddImageEvent());
+            categoryaddBloc.add(AddImageCategoryEvent());
           } else if (category == ButtonCategory.saveCategory) {
             if (formKey!.currentState!.validate()) {}
           } else if (category == ButtonCategory.logoutAdmin) {
@@ -104,12 +111,15 @@ class PrimartButtonWithoutIcon extends StatelessWidget {
                 (route) => false);
           } else if (category == ButtonCategory.cancelLogoutAdmin) {
             Navigator.of(context).pop();
-          }
-          else if (category == ButtonCategory.addExerciceGif) {
-           exerciceAddBloc.add(GifAddEvent());
-          }
-          else if (category == ButtonCategory.saveExercice) {
-           if (formKey!.currentState!.validate()) {}
+          } else if (category == ButtonCategory.addExerciceGif) {
+            exerciceAddBloc.add(GifAddEvent(groupValue: groupValue??''));
+          } else if (category == ButtonCategory.saveExercice) {
+            if (formKey!.currentState!.validate()) {}
+          } else if (category == ButtonCategory.save) {
+            imageBloc.add(SaveImageButtonClickedEvent(image: image!));
+          } else if (category == ButtonCategory.deleteImage) {
+            imageBloc.add(ImageDeleteEvent(id: id!));
+            Navigator.of(context).pop();
           }
         },
         child: Text(

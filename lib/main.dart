@@ -1,9 +1,9 @@
-
 import 'package:fitx/src/presentation/views/admin_profil/bloc/admin_bloc.dart';
 import 'package:fitx/src/presentation/views/category_add_screen/bloc/categoryadd_bloc.dart';
 import 'package:fitx/src/presentation/views/exercice_add_screen/bloc/exercice_add_bloc.dart';
-import 'package:fitx/src/presentation/views/exercise_screen/bloc/exercice_bloc.dart';
+import 'package:fitx/src/presentation/views/exercise_screen/bloc/exercise_bloc.dart';
 import 'package:fitx/src/presentation/views/home_screen/cubit/home_cubit.dart';
+import 'package:fitx/src/presentation/views/image_screen/bloc/add_image_bloc.dart';
 import 'package:fitx/src/presentation/views/image_screen/bloc/image_bloc.dart';
 import 'package:fitx/src/presentation/views/login_screen/bloc/login_bloc.dart';
 import 'package:fitx/src/presentation/views/splash_screen/bloc/splash_bloc.dart';
@@ -22,11 +22,12 @@ void main() async {
 LoginBloc loginBloc = LoginBloc();
 SplashBloc splashBloc = SplashBloc();
 HomeCubit homeCubit = HomeCubit();
-ImageBloc imageBloc=ImageBloc();
-CategoryaddBloc categoryaddBloc=CategoryaddBloc();
-ExerciceBloc exerciceBloc =ExerciceBloc();
-AdminBloc adminBloc =AdminBloc();
-ExerciceAddBloc exerciceAddBloc=ExerciceAddBloc();
+ImageBloc imageBloc = ImageBloc();
+CategoryaddBloc categoryaddBloc = CategoryaddBloc();
+AdminBloc adminBloc = AdminBloc();
+ExerciceAddBloc exerciceAddBloc = ExerciceAddBloc();
+AddImageBloc addImageBloc = AddImageBloc();
+ExerciseBloc exerciceBloc=ExerciseBloc();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -46,17 +47,21 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => imageBloc,
         ),
-          BlocProvider(
+        BlocProvider(
           create: (context) => categoryaddBloc,
         ),
         BlocProvider(
-          create: (context) => exerciceBloc,
+          create: (context) => adminBloc,
         ),
         BlocProvider(
-          create: (context) => adminBloc,
-        ),BlocProvider(
           create: (context) => exerciceAddBloc,
-        )
+        ),
+        BlocProvider(
+          create: (context) => addImageBloc,
+        ),
+         BlocProvider(
+          create: (context) => exerciceBloc,
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

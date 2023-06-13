@@ -5,7 +5,7 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial(index: 0));
-  void onTapFunctionOfBottemNavigationBar(int index){
+  void onTapFunctionOfBottemNavigationBar(int index) {
     emit(HomeInitial(index: index));
   }
 }

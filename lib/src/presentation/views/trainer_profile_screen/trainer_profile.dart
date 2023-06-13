@@ -80,7 +80,9 @@ class TrainerProfileScreen extends StatelessWidget {
               ),
             ),
             spaceforHeight20,
-            PrimartButtonWithoutIcon(screenHeight: screenHeight, category:ButtonCategory.hireTrainer )
+            PrimartButtonWithoutIcon(
+                screenHeight: screenHeight,
+                category: ButtonCategory.hireTrainer)
           ],
         ),
       ),

@@ -39,59 +39,71 @@ class ExercisScreen extends StatelessWidget {
                 fontSize: 12,
               ),
             ),
-            trailing:const Padding(
-              padding:  EdgeInsets.only(right: 10),
+            trailing: const Padding(
+              padding: EdgeInsets.only(right: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ContainerButton(buttonType: ContainerButtonType.exerciseDelete,),
-                  ContainerButton(buttonType: ContainerButtonType.exerciseEdit,)
+                  ContainerButton(
+                    buttonType: ContainerButtonType.exerciseDelete,
+                  ),
+                  ContainerButton(
+                    buttonType: ContainerButtonType.exerciseEdit,
+                  )
                 ],
               ),
             ),
           ),
         ),
       )),
-      floatingActionButton: FloatingActionButton(backgroundColor: primaryColor, onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ExerciceAddPage(),));
-      },child:const Icon(Icons.add,color: Colors.black,),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: primaryColor,
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ExerciceAddPage(),
+          ));
+        },
+        child: const Icon(
+          Icons.add,
+          color: Colors.black,
+        ),
       ),
     );
   }
 }
-enum ContainerButtonType{exerciseDelete,exerciseEdit}
+
+enum ContainerButtonType { exerciseDelete, exerciseEdit }
 
 class ContainerButton extends StatelessWidget {
   const ContainerButton({
-    super.key, required this.buttonType,
+    super.key,
+    required this.buttonType,
   });
   final ContainerButtonType buttonType;
   @override
   Widget build(BuildContext context) {
-    String text='';
-    Color color=primaryColor;
-    if(buttonType==ContainerButtonType.exerciseDelete){
-      text='Delete';
-      color=Colors.red;
-    }else  if(buttonType==ContainerButtonType.exerciseEdit){
-      text='Edit';
-      color=Colors.blue;
+    String text = '';
+    Color color = primaryColor;
+    if (buttonType == ContainerButtonType.exerciseDelete) {
+      text = 'Delete';
+      color = Colors.red;
+    } else if (buttonType == ContainerButtonType.exerciseEdit) {
+      text = 'Edit';
+      color = Colors.blue;
     }
     return GestureDetector(
-      onTap: () {
-        
-      },
+      onTap: () {},
       child: Container(
         height: 20,
         width: 43,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
-          color:color,
+          color: color,
         ),
-        child:  Text(
+        child: Text(
           text,
           textAlign: TextAlign.center,
-          style:const TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
     );

@@ -11,12 +11,13 @@ part 'categoryadd_state.dart';
 
 class CategoryaddBloc extends Bloc<CategoryaddEvent, CategoryaddState> {
   CategoryaddBloc() : super(CategoryaddInitial()) {
-     on<AddImageEvent>(addImageEvent);
+    on<AddImageCategoryEvent>(addImageEvent);
   }
 
-  FutureOr<void> addImageEvent(AddImageEvent event, Emitter<CategoryaddState> emit)async {
-    File?image=await ImagePickingFunction.imagePicking();
-    if(image!=null){
+  FutureOr<void> addImageEvent(
+      AddImageCategoryEvent event, Emitter<CategoryaddState> emit) async {
+    File? image = await ImagePickingFunction.imagePicking();
+    if (image != null) {
       emit(AddImageState(image: image));
     }
   }

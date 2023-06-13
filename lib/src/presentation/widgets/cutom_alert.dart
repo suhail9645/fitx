@@ -1,4 +1,3 @@
-
 import 'package:fitx/src/presentation/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import '../../config/enums/enums.dart';
@@ -20,7 +19,7 @@ class CustomAlertBoxWithoutImage extends StatelessWidget {
           Text('Logout ?'),
         ],
       ),
-      content:const Text('Are You Logout from admin app'),
+      content: const Text('Are You Logout from admin app'),
       actions: [
         PrimartButtonWithoutIcon(
             screenHeight: screenHeight,

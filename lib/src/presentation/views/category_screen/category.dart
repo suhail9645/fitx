@@ -61,8 +61,10 @@ class CategoryTile extends StatelessWidget {
             onPressed: (context) {
               showDialog(
                 context: context,
-                builder: (context) =>
-                    CustomAlertBox(screenHeight: screenHeight),
+                builder: (context) => CustomAlertBox(
+                  screenHeight: screenHeight,
+                  category: ButtonCategory.deletCategory,
+                ),
               );
             },
             backgroundColor: const Color(0xFFFE4A49),

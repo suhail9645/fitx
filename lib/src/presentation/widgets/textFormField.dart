@@ -1,3 +1,4 @@
+import 'package:fitx/src/config/constants/lists.dart';
 import 'package:flutter/material.dart';
 
 import '../../config/constants/colors.dart';
@@ -17,8 +18,8 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 25, right: 25, bottom: 10),
-      child: TextFormField(  
-        maxLines: hint=='Description'?3:1,
+      child: TextFormField(
+        maxLines: hint == 'Description'||hint=='focused area' ? 3 : 1,
         obscureText: obscureText,
         decoration: InputDecoration(
           labelText: hint,
@@ -30,8 +31,13 @@ class CustomTextFormField extends StatelessWidget {
         ),
         controller: controller,
         validator: (value) {
-          if(value==null||value.isEmpty){
-          return 'Please Enter the $hint';
+          if (value == null || value.isEmpty) {
+            return 'Please Enter the $hint';
+          }else if(controller==burnCalory||controller==timeOrCount){
+           int? intvalue=int.tryParse(value);
+           if(intvalue==null){
+            return 'Please enter a valid Digit';
+           }
           }
           return null;
         },
