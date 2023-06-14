@@ -1,3 +1,5 @@
+import 'package:fitx/src/domain/model/category/category.dart';
+import 'package:fitx/src/domain/model/exercise/exercise.dart';
 import 'package:fitx/src/domain/model/image/image.dart';
 import 'package:fitx/src/presentation/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +11,14 @@ class CustomAlertBox extends StatelessWidget {
     super.key,
     required this.screenHeight,
     this.image,
-    required this.category,
+    required this.category, this.exercise,this.categoryModel, this.ontap,
   });
   final ButtonCategory category;
   final double screenHeight;
   final ImageModel? image;
+  final Exercise?exercise;
+  final CategoryModel? categoryModel;
+  final Function? ontap;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -35,7 +40,7 @@ class CustomAlertBox extends StatelessWidget {
                         topEnd: Radius.circular(7)),
                     image: DecorationImage(
                       image: NetworkImage(
-                        image?.image ??
+                        image?.image ??exercise?.demo??categoryModel?.image??
                             'https://manofmany.com/wp-content/uploads/2021/07/No-Equipment-Home-Workout-2.jpg',
                       ),
                       fit: BoxFit.fill,
@@ -74,7 +79,8 @@ class CustomAlertBox extends StatelessWidget {
             PrimartButtonWithoutIcon(
               screenHeight: screenHeight,
               category: category,
-              id: image?.id,
+              id: image?.id??exercise?.id??categoryModel?.id,
+              ontap:ontap ,
             ),
             spaceforHeight10,
             InkWell(

@@ -6,6 +6,6 @@ abstract class ExerciceAddState {}
 class ExerciceAddInitial extends ExerciceAddState {
   final File? gif;
   final String groupValue;
-  ExerciceAddInitial({required this.gif, required this.groupValue});
- 
+  final String? editImage;
+  ExerciceAddInitial(this.editImage, {required this.gif, required this.groupValue});
 }

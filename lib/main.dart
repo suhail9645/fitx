@@ -1,5 +1,7 @@
 import 'package:fitx/src/presentation/views/admin_profil/bloc/admin_bloc.dart';
 import 'package:fitx/src/presentation/views/category_add_screen/bloc/categoryadd_bloc.dart';
+import 'package:fitx/src/presentation/views/category_add_screen/cubit/check_box_cubit.dart';
+import 'package:fitx/src/presentation/views/category_screen/bloc/category_bloc.dart';
 import 'package:fitx/src/presentation/views/exercice_add_screen/bloc/exercice_add_bloc.dart';
 import 'package:fitx/src/presentation/views/exercise_screen/bloc/exercise_bloc.dart';
 import 'package:fitx/src/presentation/views/home_screen/cubit/home_cubit.dart';
@@ -27,7 +29,11 @@ CategoryaddBloc categoryaddBloc = CategoryaddBloc();
 AdminBloc adminBloc = AdminBloc();
 ExerciceAddBloc exerciceAddBloc = ExerciceAddBloc();
 AddImageBloc addImageBloc = AddImageBloc();
-ExerciseBloc exerciceBloc=ExerciseBloc();
+ExerciseBloc exerciceBloc = ExerciseBloc();
+CheckBoxCubit checkBoxCubit = CheckBoxCubit();
+FilePickerCubit filePickerCubit = FilePickerCubit();
+CategoryBloc categoryBloc=CategoryBloc();
+// FilePickerCubit filePickerCubit=FilePickerCubit();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -59,9 +65,18 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => addImageBloc,
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => exerciceBloc,
         ),
+        BlocProvider<CheckBoxCubit>(
+          create: (context) => checkBoxCubit,
+        ),
+        BlocProvider<FilePickerCubit>(
+          create: (context) => filePickerCubit,
+        ),
+        BlocProvider(
+          create: (context) => categoryBloc,
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,16 +1,10 @@
-import 'dart:io';
-import 'package:http/http.dart' as http;
+
 import 'package:fitx/src/domain/model/exercise/exercise.dart';
 import 'package:flutter/material.dart';
 
 class ConvertExerciseObject {
- Future< Exercise> converting(
-      List<TextEditingController> controllers, File gif, String timeOrCount)async {
-    //       var pic = await http.MultipartFile.fromPath(
-    //   "image",
-    //   gif.path,
-    // );
-
+  Exercise converting(List<TextEditingController> controllers, dynamic gif,
+      String timeOrCount)  {
     return (Exercise(
         id: null,
         name: controllers[0].text,
@@ -20,6 +14,7 @@ class ConvertExerciseObject {
         videoLink: controllers[2].text,
         focusedArea: controllers[4].text,
         count: timeOrCount == 'Count' ? int.parse(controllers[5].text) : null,
-        duration: timeOrCount == 'Time' ? int.parse(controllers[5].text): null));
+        duration:
+            timeOrCount == 'Time' ? int.parse(controllers[5].text) : null));
   }
 }

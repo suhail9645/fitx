@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:fitx/src/data/repositories/remote/admin/admin_login_imp.dart';
+import 'package:fitx/src/data/repositories/remote/admin_login_imp.dart';
 import 'package:meta/meta.dart';
 
 part 'login_event.dart';

@@ -1,8 +1,8 @@
 import 'dart:io';
-
 import 'package:fitx/src/presentation/views/category_add_screen/bloc/categoryadd_bloc.dart';
 import 'package:fitx/src/presentation/views/category_add_screen/category_add_page.dart';
 import 'package:fitx/src/presentation/views/exercice_add_screen/bloc/exercice_add_bloc.dart';
+import 'package:fitx/src/presentation/views/exercise_screen/bloc/exercise_bloc.dart';
 import 'package:fitx/src/presentation/views/login_screen/login.dart';
 import 'package:fitx/src/presentation/widgets/cutom_alert.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,8 @@ class PrimartButtonWithoutIcon extends StatelessWidget {
       required this.category,
       this.formKey,
       this.image,
-      this.id, this.groupValue});
+      this.id,
+      this.groupValue, this.ontap});
 
   final double screenHeight;
   final ButtonCategory category;
@@ -28,6 +29,7 @@ class PrimartButtonWithoutIcon extends StatelessWidget {
   final File? image;
   final int? id;
   final String? groupValue;
+  final Function? ontap;
   @override
   Widget build(BuildContext context) {
     double width = 0;
@@ -80,6 +82,10 @@ class PrimartButtonWithoutIcon extends StatelessWidget {
       width = 6;
       text = 'Delete';
     }
+    else if (category == ButtonCategory.deleteExercice) {
+      width = 6;
+      text = 'Delete';
+    }
     return SizedBox(
       width: screenHeight / width,
       child: ElevatedButton(
@@ -89,13 +95,11 @@ class PrimartButtonWithoutIcon extends StatelessWidget {
               category == ButtonCategory.edit) {
             addImageBloc.add(AddImageButtonClickedEvent());
           } else if (category == ButtonCategory.addCategory) {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => CategoryAddPage(),
-            ));
+           ontap!();
           } else if (category == ButtonCategory.addCategoryImage) {
             categoryaddBloc.add(AddImageCategoryEvent());
           } else if (category == ButtonCategory.saveCategory) {
-            if (formKey!.currentState!.validate()) {}
+           ontap!();
           } else if (category == ButtonCategory.logoutAdmin) {
             showDialog(
               context: context,
@@ -112,7 +116,7 @@ class PrimartButtonWithoutIcon extends StatelessWidget {
           } else if (category == ButtonCategory.cancelLogoutAdmin) {
             Navigator.of(context).pop();
           } else if (category == ButtonCategory.addExerciceGif) {
-            exerciceAddBloc.add(GifAddEvent(groupValue: groupValue??''));
+            exerciceAddBloc.add(GifAddEvent(groupValue: groupValue ?? ''));
           } else if (category == ButtonCategory.saveExercice) {
             if (formKey!.currentState!.validate()) {}
           } else if (category == ButtonCategory.save) {
@@ -120,6 +124,12 @@ class PrimartButtonWithoutIcon extends StatelessWidget {
           } else if (category == ButtonCategory.deleteImage) {
             imageBloc.add(ImageDeleteEvent(id: id!));
             Navigator.of(context).pop();
+          }
+          else if (category == ButtonCategory.deleteExercice) {
+            exerciceBloc.add(ExerciseDeleteEvent(id: id!));
+            Navigator.of(context).pop();
+          }else if(category==ButtonCategory.deletCategory){
+            ontap!();
           }
         },
         child: Text(

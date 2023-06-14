@@ -4,7 +4,7 @@ import 'package:fitx/src/domain/model/error/error.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../../config/constants/strings.dart';
+import '../../../config/constants/strings.dart';
 
 class GetNewAccessKey {
   static Future<Either<ErrorModel, String>> getNewAccessKey() async {

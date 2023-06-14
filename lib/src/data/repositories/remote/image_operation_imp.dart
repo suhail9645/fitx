@@ -1,15 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:either_dart/either.dart';
-import 'package:fitx/src/data/repositories/remote/access_key/get_new_access.dart';
-import 'package:fitx/src/domain/image/image_operation.dart';
+import 'package:fitx/src/data/repositories/remote/get_new_access.dart';
+import 'package:fitx/src/domain/repo/image_operation.dart';
 import 'package:fitx/src/domain/model/error/error.dart';
 import 'package:fitx/src/domain/model/image/image.dart';
 import 'package:fitx/src/domain/model/image/image_page/image_page.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import '../../../../config/constants/strings.dart';
+import '../../../config/constants/strings.dart';
 
 class ImageOperationsImp extends ImageOperations {
   @override
@@ -45,7 +45,7 @@ class ImageOperationsImp extends ImageOperations {
       "image",
       image.path,
     );
-   
+
     request.files.add(pic);
     var response = await request.send();
     return response;

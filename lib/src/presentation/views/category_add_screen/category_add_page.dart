@@ -1,20 +1,55 @@
+import 'dart:io';
+import 'package:fitx/main.dart';
 import 'package:fitx/src/config/constants/lists.dart';
 import 'package:fitx/src/config/constants/sized_box.dart';
+import 'package:fitx/src/data/repositories/local/mp3_picker.dart';
+import 'package:fitx/src/domain/model/category/category.dart';
+import 'package:fitx/src/presentation/views/category_add_screen/widget/exercise_grid.dart';
+import 'package:fitx/src/presentation/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../config/constants/strings.dart';
 import '../../../config/enums/enums.dart';
 import '../../widgets/primary_button.dart';
 import '../../widgets/textFormField.dart';
+import '../category_screen/bloc/category_bloc.dart';
 import 'bloc/categoryadd_bloc.dart';
+enum CategoryAddOrEdit{
+  categoryAdd,categoryEdit
+}
+// ignore: must_be_immutable
+class CategoryAddPage extends StatefulWidget {
+ const CategoryAddPage({super.key, required this.type, this.category});
+  final CategoryAddOrEdit type;
+  final CategoryModel? category;
+  
+  @override
+  State<CategoryAddPage> createState() => _CategoryAddPageState();
+}
 
-class CategoryAddPage extends StatelessWidget {
-  CategoryAddPage({super.key});
+class _CategoryAddPageState extends State<CategoryAddPage> {
+
+  @override
+  void initState() {
+    if(widget.type==CategoryAddOrEdit.categoryEdit){
+      categoryAddPageTextEditingControllers[0].text=widget.category!.name!;
+      categoryAddPageTextEditingControllers[1].text=widget.category!.description!;
+       categoryAddPageTextEditingControllers[2].text=widget.category!.music!.split('/').last;
+      
+    }
+    super.initState();
+  }
   final _formKey = GlobalKey<FormState>();
+
+  File? music;
+
+  File? image;
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     double screenHeight = screenSize.height;
+    List<int> listId = [];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Category'),
@@ -30,6 +65,9 @@ class CategoryAddPage extends StatelessWidget {
               children: [
                 BlocBuilder<CategoryaddBloc, CategoryaddState>(
                   builder: (context, state) {
+                    if (state is AddImageState) {
+                      image = state.image;
+                    }
                     return Container(
                       height: screenHeight / 3.5,
                       width: screenHeight / 2.6,
@@ -63,41 +101,57 @@ class CategoryAddPage extends StatelessWidget {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  ElevatedButton(
+                      onPressed: () async {
+                        music = await Mp3PickerOperations.mp3Picker(context);
+                        if (music != null) {
+                          categoryAddPageTextEditingControllers.last.text =
+                              music!.path.split('/').last;
+                        }
+                      },
+                      child: const Text('Add Music'))
+                ],
+              ),
+            ),
             const Text('Exercices'),
             Padding(
               padding: const EdgeInsets.all(4.0),
               child: SingleChildScrollView(
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 10,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 4,
-                      crossAxisSpacing: 4),
-                  itemBuilder: (context, index) => Container(
-                    decoration: BoxDecoration(
-                      gradient: const RadialGradient(
-                          colors: [Colors.white, Colors.grey]),
-                      borderRadius: BorderRadius.circular(4),
-                      image: const DecorationImage(
-                          image: NetworkImage(
-                              'https://media.giphy.com/media/J47Vkh2p67L0ufw0Re/giphy.gif'),
-                          fit: BoxFit.fill),
-                    ),
-                    child: const Align(
-                      alignment: Alignment.topRight,
-                      child: Icon(Icons.check_box_outline_blank),
-                    ),
-                  ),
-                ),
+                child: CategoryAddPageExercises(listId: listId),
               ),
             ),
             spaceforHeight20,
-            PrimartButtonWithoutIcon(
-              screenHeight: screenHeight,
-              category: ButtonCategory.saveCategory,
-              formKey: _formKey,
+            BlocListener<CategoryBloc, CategoryState>(
+              listener: (context, state) {
+                if (state is CategoryAddedSuccessState) {
+                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(contant: 'new category added ') );
+                    
+                }
+              },
+              child: PrimartButtonWithoutIcon(
+                screenHeight: screenHeight,
+                category: ButtonCategory.saveCategory,
+                formKey: _formKey,
+                ontap: () {
+                  if (_formKey.currentState!.validate() &&
+                      music != null &&
+                      image != null) {
+                    categoryBloc.add(CategoryAddEvent(
+                        image: image!,
+                        music: music!,
+                        controllers: categoryAddPageTextEditingControllers,
+                        exerciseid: listId));
+                  } else if (music == null) {
+                    ScaffoldMessenger.of(context).showSnackBar( CustomSnackBar(contant: 'Please add a music file'));
+                  }else if (image == null) {
+                    ScaffoldMessenger.of(context).showSnackBar( CustomSnackBar(contant: 'Please add a image file'));
+                  }
+                },
+              ),
             ),
             spaceforHeight20,
           ],
@@ -106,3 +160,4 @@ class CategoryAddPage extends StatelessWidget {
     );
   }
 }
+

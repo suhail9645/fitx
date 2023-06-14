@@ -19,7 +19,7 @@ class CustomTextFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 25, right: 25, bottom: 10),
       child: TextFormField(
-        maxLines: hint == 'Description'||hint=='focused area' ? 3 : 1,
+        maxLines: hint == 'Description' || hint == 'focused area' ? 3 : 1,
         obscureText: obscureText,
         decoration: InputDecoration(
           labelText: hint,
@@ -33,11 +33,11 @@ class CustomTextFormField extends StatelessWidget {
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please Enter the $hint';
-          }else if(controller==burnCalory||controller==timeOrCount){
-           int? intvalue=int.tryParse(value);
-           if(intvalue==null){
-            return 'Please enter a valid Digit';
-           }
+          } else if (controller == burnCalory || controller == timeOrCount) {
+            int? intvalue = int.tryParse(value);
+            if (intvalue == null) {
+              return 'Please enter a valid Digit';
+            }
           }
           return null;
         },

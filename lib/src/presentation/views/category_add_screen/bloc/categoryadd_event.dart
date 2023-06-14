@@ -5,4 +5,4 @@ abstract class CategoryaddEvent {}
 
 class AddImageCategoryEvent extends CategoryaddEvent {}
 
-class SaveCategoryEvent extends CategoryaddEvent {}
+class SaveSuccessCategoryEvent extends CategoryaddEvent {}

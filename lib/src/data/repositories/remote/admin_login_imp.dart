@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:fitx/src/config/constants/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../domain/auth/admin_login.dart';
+import '../../../domain/repo/admin_login.dart';
 import 'package:http/http.dart' as http;
 
 class AdminLoginFunctionsImp extends AdminLoginFunctions {

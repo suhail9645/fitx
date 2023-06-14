@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:fitx/main.dart';
-import 'package:fitx/src/data/repositories/remote/image/image_operation_imp.dart';
+import 'package:fitx/src/data/repositories/remote/image_operation_imp.dart';
 import 'package:fitx/src/presentation/views/image_screen/bloc/add_image_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';

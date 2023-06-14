@@ -12,7 +12,8 @@ enum ButtonCategory {
   cancelLogoutAdmin,
   addExerciceGif,
   saveExercice,
-  hireTrainer
+  hireTrainer,
+  deleteExercice
 }
 
 enum AlertDialogCategory { deleteExercice, deleteCategory }

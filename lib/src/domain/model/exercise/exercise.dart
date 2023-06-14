@@ -19,15 +19,15 @@ class Exercise extends Equatable {
   final String focusedArea;
 
   const Exercise({
-   required this.id,
-   required this.name,
-   required this.description,
+    required this.id,
+    required this.name,
+    required this.description,
     this.demo,
-   this.count,
-   this.duration,
-   required this.burnCalorie,
-   required this.videoLink,
-   required this.focusedArea,
+    this.count,
+    this.duration,
+    required this.burnCalorie,
+    required this.videoLink,
+    required this.focusedArea,
   });
 
   factory Exercise.fromJson(Map<String, dynamic> json) {

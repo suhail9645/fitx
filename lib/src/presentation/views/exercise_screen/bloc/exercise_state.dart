@@ -7,8 +7,17 @@ abstract class ExerciseState extends Equatable {
   List<Object> get props => [];
 }
 
-class ExerciseInitial extends ExerciseState {}
+class ExerciseInitial extends ExerciseState {
+  final List<Exercise> exercises;
 
-class ExerciseAddLoading extends ExerciseState{}
+  ExerciseInitial({required this.exercises});
+}
+
+class ExercisePageLoadingState extends ExerciseState {}
+class ExercisePageErrorState extends ExerciseState {}
+
+class ExerciseAddLoading extends ExerciseState {}
 
 class ExerciseAddSuccessState extends ExerciseState {}
+
+class DeleteSuccessState extends ExerciseState{}

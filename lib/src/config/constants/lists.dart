@@ -25,8 +25,7 @@ final TextEditingController videoLink = TextEditingController();
 final TextEditingController timeOrCount = TextEditingController();
 final TextEditingController burnCalory = TextEditingController();
 final TextEditingController exerciceDescription = TextEditingController();
-final TextEditingController focused_area= TextEditingController();
-
+final TextEditingController focused_area = TextEditingController();
 
 final List<TextEditingController> categoryAddPageTextEditingControllers = [
   categoryName,
