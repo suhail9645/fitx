@@ -8,6 +8,9 @@ part of 'category.dart';
 
 CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) =>
     CategoryModel(
+      (json['exercises'] as List<dynamic>?)
+          ?.map((e) => Exercise.fromJson(e as Map<String, dynamic>))
+          .toList(),
       id: json['id'] as int?,
       name: json['name'] as String?,
       description: json['description'] as String?,
@@ -24,4 +27,5 @@ Map<String, dynamic> _$CategoryModelToJson(CategoryModel instance) =>
       'image': instance.image,
       'music': instance.music,
       'exercises_count': instance.exercisesCount,
+      'exercises': instance.exercises,
     };

@@ -11,7 +11,7 @@ class CustomAlertBox extends StatelessWidget {
     super.key,
     required this.screenHeight,
     this.image,
-    required this.category, this.exercise,this.categoryModel, this.ontap,
+    required this.category, this.exercise,this.categoryModel, this.ontap, required this.content,
   });
   final ButtonCategory category;
   final double screenHeight;
@@ -19,6 +19,7 @@ class CustomAlertBox extends StatelessWidget {
   final Exercise?exercise;
   final CategoryModel? categoryModel;
   final Function? ontap;
+  final String content;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -51,19 +52,19 @@ class CustomAlertBox extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 8, top: screenHeight / 7),
-                  child: const SizedBox(
+                  child:  SizedBox(
                     height: 50,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                      const  Text(
                           'Delete ?',
                           style: TextStyle(
                               fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          'Are you sure to delete this Image?',
-                          style: TextStyle(
+                          'Are you sure to delete this $content?',
+                          style:const TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 232, 240, 8),

@@ -16,6 +16,7 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
     on<ExerciseAddEvent>(exerciseAddEvent);
     on<ExerciseInitialEvent>(exerciseInitialEvent);
     on<ExerciseDeleteEvent>(exerciseDeleteEvent);
+    on<ExerciseEditEventMain>(exerciseEditEventMain);
   }
 
   FutureOr<void> exerciseAddEvent(
@@ -50,5 +51,12 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
       exerciceBloc.add(ExerciseInitialEvent());
     }
   
+  }
+
+  FutureOr<void> exerciseEditEventMain(ExerciseEditEventMain event, Emitter<ExerciseState> emit) async{
+  final response=await ExerciseOperationsImp().updateExercise(event.exercise, event.groupValue,event.id);
+  if(response.isRight){
+    emit(EditSuccessState());
+  }
   }
 }

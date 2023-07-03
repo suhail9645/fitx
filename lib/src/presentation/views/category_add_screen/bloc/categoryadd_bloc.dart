@@ -11,6 +11,7 @@ class CategoryaddBloc extends Bloc<CategoryaddEvent, CategoryaddState> {
   CategoryaddBloc() : super(CategoryaddInitial()) {
     on<AddImageCategoryEvent>(addImageEvent);
     on<SaveSuccessCategoryEvent>(saveSuccessCategoryEvent);
+    on<CategoryAddPagePopEvent>(categoryAddPagePopEvent);
   }
 
   FutureOr<void> addImageEvent(
@@ -22,6 +23,13 @@ class CategoryaddBloc extends Bloc<CategoryaddEvent, CategoryaddState> {
   }
 
   FutureOr<void> saveSuccessCategoryEvent(SaveSuccessCategoryEvent event, Emitter<CategoryaddState> emit) {
+    for (var element in categoryAddPageTextEditingControllers) {
+      element.clear();
+    }
+    emit(CategoryaddInitial());
+  }
+
+  FutureOr<void> categoryAddPagePopEvent(CategoryAddPagePopEvent event, Emitter<CategoryaddState> emit) {
     for (var element in categoryAddPageTextEditingControllers) {
       element.clear();
     }

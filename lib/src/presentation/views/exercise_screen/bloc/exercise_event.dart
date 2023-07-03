@@ -22,3 +22,11 @@ class ExerciseDeleteEvent extends ExerciseEvent {
  const ExerciseDeleteEvent({required this.id});
 
 }
+class ExerciseEditEventMain extends ExerciseEvent {
+final int id;
+final String groupValue;
+final Exercise exercise;
+
+  ExerciseEditEventMain({required this.id,required this.groupValue,required this.exercise});
+
+}

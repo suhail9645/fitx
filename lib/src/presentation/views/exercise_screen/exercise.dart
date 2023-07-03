@@ -98,7 +98,7 @@ class ExercisScreen extends StatelessWidget {
         backgroundColor: primaryColor,
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ExerciceAddPage(type: ExercisAddorEdit.addExercice,),
+            builder: (context) =>const ExerciceAddPage(type: ExercisAddorEdit.addExercice,),
           ));
         },
         child: const Icon(

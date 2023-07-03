@@ -14,6 +14,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     on<CategoryAddEvent>(categoryAddEvent);
     on<CategoryInitialEvent>(categoryInitialEvent);
     on<CategoryDeleteEvent>(categoryDeleteEvent);
+    on<CategoryEditEvent>(categoryEditEvent);
   }
 
   FutureOr<void> categoryAddEvent(CategoryAddEvent event, Emitter<CategoryState> emit) async{
@@ -21,6 +22,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     if(response.isRight){
       checkBoxCubit.onSavedCategory();
       categoryaddBloc.add(SaveSuccessCategoryEvent());
+      
       emit(CategoryAddedSuccessState());
     }else {
        emit(CategoryAddedErrorState(error: response.left.error));
@@ -44,6 +46,17 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       emit(CategoryDeleteSuccessState());
       categoryBloc.add(CategoryInitialEvent());
     }else{
+      emit(CategoryErrorState());
+    }
+  }
+
+  FutureOr<void> categoryEditEvent(CategoryEditEvent event, Emitter<CategoryState> emit)async {
+    final response=await CategoryOperationImp().updateCategory(event.controllers, event.id,event.image,event.music,event.exerciseid);
+    if(response.isRight){
+      emit(CategoryUpdateSuccessState());
+      categoryBloc.add(CategoryInitialEvent());
+    }
+    else{
       emit(CategoryErrorState());
     }
   }

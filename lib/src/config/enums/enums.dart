@@ -17,3 +17,6 @@ enum ButtonCategory {
 }
 
 enum AlertDialogCategory { deleteExercice, deleteCategory }
+enum ExercisAddorEdit{
+  editExercise,addExercice
+}

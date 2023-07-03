@@ -8,6 +8,7 @@ class CheckBoxCubit extends Cubit<CheckBoxState> {
  
   void onChanged(bool value,int index){
     boolList[index]=value;
+    print(boolList);
     emit(CheckBoxInitial(isCheck: boolList));
   }
   void listGenerate(int length){

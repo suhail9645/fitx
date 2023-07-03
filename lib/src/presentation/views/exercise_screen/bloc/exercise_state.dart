@@ -21,3 +21,5 @@ class ExerciseAddLoading extends ExerciseState {}
 class ExerciseAddSuccessState extends ExerciseState {}
 
 class DeleteSuccessState extends ExerciseState{}
+
+class EditSuccessState extends ExerciseState{}

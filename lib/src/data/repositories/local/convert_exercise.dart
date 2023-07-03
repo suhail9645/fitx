@@ -15,6 +15,6 @@ class ConvertExerciseObject {
         focusedArea: controllers[4].text,
         count: timeOrCount == 'Count' ? int.parse(controllers[5].text) : null,
         duration:
-            timeOrCount == 'Time' ? int.parse(controllers[5].text) : null));
+            timeOrCount == 'Duration' ? int.parse(controllers[5].text) : null));
   }
 }

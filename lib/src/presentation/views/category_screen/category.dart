@@ -81,6 +81,7 @@ class CategoryTile extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (context) => CustomAlertBox(
+                            content: 'Category',
                             screenHeight: screenHeight,
                             category: ButtonCategory.deletCategory,
                             categoryModel: state.categories[index],
@@ -142,7 +143,7 @@ class CategoryTile extends StatelessWidget {
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            '${state.categories[index].exercisesCount} Workouts',
+                            '${state.categories[index].exercises?.length} Workouts',
                             style: const TextStyle(
                                 fontSize: 17, fontWeight: FontWeight.bold),
                           ),

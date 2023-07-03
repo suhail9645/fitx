@@ -26,3 +26,6 @@ class CategoryErrorState extends CategoryState{}
 
 class CategoryDeleteSuccessState extends CategoryState{}
 
+class CategoryUpdateSuccessState extends CategoryState{}
+
+

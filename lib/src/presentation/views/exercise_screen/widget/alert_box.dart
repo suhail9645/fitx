@@ -35,6 +35,7 @@ class ContainerButton extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => CustomAlertBox(
+              content: 'Execise',
               screenHeight: screenHeight,
               category: ButtonCategory.deleteExercice,
               exercise: exercise,

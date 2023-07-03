@@ -20,6 +20,7 @@ class ImageContainer extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => CustomAlertBox(
+              content: 'Image',
               screenHeight: screenHeight,
               category: ButtonCategory.deleteImage,
               image: image,

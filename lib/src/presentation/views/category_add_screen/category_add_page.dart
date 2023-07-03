@@ -1,55 +1,51 @@
-import 'dart:io';
-import 'package:fitx/main.dart';
-import 'package:fitx/src/config/constants/lists.dart';
-import 'package:fitx/src/config/constants/sized_box.dart';
-import 'package:fitx/src/data/repositories/local/mp3_picker.dart';
-import 'package:fitx/src/domain/model/category/category.dart';
-import 'package:fitx/src/presentation/views/category_add_screen/widget/exercise_grid.dart';
-import 'package:fitx/src/presentation/widgets/custom_snackbar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../config/constants/strings.dart';
-import '../../../config/enums/enums.dart';
-import '../../widgets/primary_button.dart';
-import '../../widgets/textFormField.dart';
-import '../category_screen/bloc/category_bloc.dart';
-import 'bloc/categoryadd_bloc.dart';
-enum CategoryAddOrEdit{
-  categoryAdd,categoryEdit
-}
+
+import 'package:fitx/src/presentation/views/category_screen/category.dart';
+
+import 'category_add_barell.dart';
+
+enum CategoryAddOrEdit { categoryAdd, categoryEdit }
+
 // ignore: must_be_immutable
 class CategoryAddPage extends StatefulWidget {
- const CategoryAddPage({super.key, required this.type, this.category});
+  const CategoryAddPage({super.key, required this.type, this.category});
   final CategoryAddOrEdit type;
   final CategoryModel? category;
-  
+
   @override
   State<CategoryAddPage> createState() => _CategoryAddPageState();
 }
 
 class _CategoryAddPageState extends State<CategoryAddPage> {
+  List<int> listId = [];
+  final _formKey = GlobalKey<FormState>();
+  File? music;
+  File? image;
 
   @override
   void initState() {
-    if(widget.type==CategoryAddOrEdit.categoryEdit){
-      categoryAddPageTextEditingControllers[0].text=widget.category!.name!;
-      categoryAddPageTextEditingControllers[1].text=widget.category!.description!;
-       categoryAddPageTextEditingControllers[2].text=widget.category!.music!.split('/').last;
-      
+    if (widget.type == CategoryAddOrEdit.categoryEdit) {
+      categoryAddPageTextEditingControllers[0].text = widget.category!.name!;
+      categoryAddPageTextEditingControllers[1].text =
+          widget.category!.description!;
+      categoryAddPageTextEditingControllers[2].text =
+          widget.category!.music!.split('/').last;
+      for (var element in widget.category!.exercises!) {
+        listId.add(element.id!);
+      }
     }
     super.initState();
   }
-  final _formKey = GlobalKey<FormState>();
 
-  File? music;
 
-  File? image;
+  // File? image;
+  
+  // File? image;
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     double screenHeight = screenSize.height;
-    List<int> listId = [];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Category'),
@@ -75,7 +71,8 @@ class _CategoryAddPageState extends State<CategoryAddPage> {
                         borderRadius: BorderRadius.circular(8),
                         image: DecorationImage(
                             image: state is! AddImageState
-                                ? const NetworkImage(imageAddPageImage)
+                                ? NetworkImage(
+                                    widget.category?.image ?? imageAddPageImage)
                                 : FileImage(state.image) as ImageProvider,
                             fit: BoxFit.cover),
                       ),
@@ -129,7 +126,7 @@ class _CategoryAddPageState extends State<CategoryAddPage> {
               listener: (context, state) {
                 if (state is CategoryAddedSuccessState) {
                   ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(contant: 'new category added ') );
-                    
+                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CategoryPage(),));
                 }
               },
               child: PrimartButtonWithoutIcon(
@@ -158,6 +155,11 @@ class _CategoryAddPageState extends State<CategoryAddPage> {
         ),
       )),
     );
+  }
+  @override
+  void dispose() {
+    categoryaddBloc.add(CategoryAddPagePopEvent());
+    super.dispose();
   }
 }
 

@@ -9,7 +9,7 @@ part of 'category_page.dart';
 CategoryModelPage _$CategoryModelPageFromJson(Map<String, dynamic> json) =>
     CategoryModelPage(
       count: json['count'] as int?,
-      next: json['next'] as String?,
+      next: json['next'],
       previous: json['previous'],
       results: json['results'] as List<dynamic>?,
     );

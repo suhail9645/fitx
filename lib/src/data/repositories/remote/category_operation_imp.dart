@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:either_dart/either.dart';
+import 'package:fitx/src/data/repositories/remote/exercise_operation_imp.dart';
 import 'package:fitx/src/data/repositories/remote/get_new_access.dart';
 import 'package:fitx/src/domain/model/category/category.dart';
 import 'package:fitx/src/domain/model/error/error.dart';
+import 'package:fitx/src/domain/model/exercise/exercise.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,7 +80,7 @@ class CategoryOperationImp extends CategoryOperation {
       CategoryModel categoryModel = CategoryModel.fromJson(data);
       for (var element in ids) {
         await http.patch(
-            Uri.parse('${baseUrl}category/${categoryModel.id}/add/$element/'));
+            Uri.parse('${baseUrl}category/${categoryModel.id}/add/$element/'),headers: {'Authorization': 'Bearer $access',});
       }
     }
     return res;
@@ -94,7 +96,20 @@ class CategoryOperationImp extends CategoryOperation {
         'Authorization': 'Bearer $access',
       });
       if (response.statusCode == 200) {
-        return Right(await filterCategoriesfromBody(response, access));
+        List<CategoryModel> categories =
+            await filterCategoriesfromBody(response, access);
+        for (var element in categories) {
+          Response exerciseResponse = await http.get(
+              Uri.parse('${baseUrl}exercise/category/${element.id}/'),
+              headers: {
+                'Authorization': 'Bearer $access',
+              });
+          if (exerciseResponse.statusCode == 200) {
+            element.exercises = await ExerciseOperationsImp()
+                .exerciseFilterFromBody(exerciseResponse, access);
+          }
+        }
+        return Right(categories);
       } else if (response.statusCode == 401) {
         final newAccess = await GetNewAccessKey.getNewAccessKey();
         if (newAccess.isRight) {
@@ -102,8 +117,23 @@ class CategoryOperationImp extends CategoryOperation {
               await http.get(Uri.parse('${baseUrl}category/getall/'), headers: {
             'Authorization': 'Bearer ${newAccess.right}',
           });
-          return Right(
-              await filterCategoriesfromBody(response, newAccess.right));
+          if (response.statusCode == 200) {
+            List<CategoryModel> categories =
+                await filterCategoriesfromBody(response, newAccess.right);
+            for (var element in categories) {
+              Response exerciseResponse = await http.get(
+                  Uri.parse('${baseUrl}exercise/category/${element.id}/'),
+                  headers: {
+                    'Authorization': 'Bearer $access',
+                  });
+              if (exerciseResponse.statusCode == 200) {
+                element.exercises = await ExerciseOperationsImp()
+                    .exerciseFilterFromBody(exerciseResponse, access);
+              }
+            }
+
+            return Right(categories);
+          }
         }
       }
     } on Exception catch (e) {
@@ -130,6 +160,7 @@ class CategoryOperationImp extends CategoryOperation {
         break;
       }
     }
+
     return categories;
   }
 
@@ -158,5 +189,94 @@ class CategoryOperationImp extends CategoryOperation {
       return Left(ErrorModel(e.toString()));
     }
     return Left(ErrorModel('session expired'));
+  }
+
+  @override
+  Future<Either<ErrorModel, bool>> updateCategory(
+      List<TextEditingController> controllers,
+      int id,
+      File? image,
+      File? music,
+      List<int> ids) async {
+    try {
+      SharedPreferences shrd = await SharedPreferences.getInstance();
+      String access = shrd.getString('access')!;
+      StreamedResponse response = await updateCategoryHelper(
+          image, music, id, controllers, access, ids);
+      if (response.statusCode == 200) {
+        return const Right(true);
+      } else if (response.statusCode == 401) {
+        final newAccess = await GetNewAccessKey.getNewAccessKey();
+        if (newAccess.isRight) {
+          response = await updateCategoryHelper(
+              image, music, id, controllers, newAccess.right, ids);
+          if (response.statusCode == 200) {
+            return const Right(true);
+          }
+        }
+      }
+    } on Exception catch (e) {
+      return Left(ErrorModel(e.toString()));
+    }
+    return Left(ErrorModel('session expired'));
+  }
+
+  Future<StreamedResponse> updateCategoryHelper(
+      File? image,
+      File? music,
+      int id,
+      List<TextEditingController> controllers,
+      String access,
+      List<int> ids) async {
+    final request = http.MultipartRequest(
+      'PATCH',
+      Uri.parse("${baseUrl}category/update/$id/"),
+    );
+    request.headers.addAll({
+      'Authorization': 'Bearer $access',
+      'Content-type': 'multipart/form-data'
+    });
+    if (image != null) {
+      var pic = await http.MultipartFile.fromPath(
+        "image",
+        image.path,
+      );
+      request.files.add(pic);
+    }
+    if (music != null) {
+      var song = await http.MultipartFile.fromPath(
+        "music",
+        music.path,
+      );
+      request.files.add(song);
+    }
+
+    request.fields.addAll({
+      "name": controllers[0].text,
+      "description": controllers[1].text,
+    });
+    StreamedResponse res = await request.send();
+
+    if (res.statusCode == 200) {
+      Response exerciseResponse = await http
+          .get(Uri.parse('${baseUrl}exercise/category/$id/'), headers: {
+        'Authorization': 'Bearer $access',
+      });
+      List<Exercise> exercises = await ExerciseOperationsImp()
+          .exerciseFilterFromBody(exerciseResponse, access);
+
+      for (var element in exercises) {
+        await http
+            .patch(Uri.parse('${baseUrl}category/$id/remove/${element.id}/'),headers: {
+        'Authorization': 'Bearer $access',
+      });
+      }
+      for (var element in ids) {
+        await http.patch(Uri.parse('${baseUrl}category/$id/add/$element/'),headers: {
+        'Authorization': 'Bearer $access',
+      });
+      }
+    }
+    return res;
   }
 }
