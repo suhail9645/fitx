@@ -10,7 +10,11 @@ part 'exercice_add_state.dart';
 
 class ExerciceAddBloc extends Bloc<ExerciceAddEvent, ExerciceAddState> {
   ExerciceAddBloc()
-      : super(ExerciceAddInitial(null,gif: null, groupValue: 'Count',)) {
+      : super(ExerciceAddInitial(
+          null,
+          gif: null,
+          groupValue: 'Count',
+        )) {
     on<GifAddEvent>(gifAddEvent);
     on<TimeAndCountChangeEvent>(timeAndCountChangeEvent);
     on<ExerciseAddSuccess>(exerciseAddSuccess);
@@ -21,13 +25,18 @@ class ExerciceAddBloc extends Bloc<ExerciceAddEvent, ExerciceAddState> {
       GifAddEvent event, Emitter<ExerciceAddState> emit) async {
     final gif = await ImagePickingFunction.imagePicking();
     if (gif != null) {
-      emit(ExerciceAddInitial(null,gif: gif, groupValue: event.groupValue,));
+      emit(ExerciceAddInitial(
+        null,
+        gif: gif,
+        groupValue: event.groupValue,
+      ));
     }
   }
 
   FutureOr<void> timeAndCountChangeEvent(
       TimeAndCountChangeEvent event, Emitter<ExerciceAddState> emit) {
-    emit(ExerciceAddInitial(null,gif: event.gif, groupValue: event.groupValue));
+    emit(
+        ExerciceAddInitial(null, gif: event.gif, groupValue: event.groupValue));
   }
 
   FutureOr<void> exerciseAddSuccess(
@@ -38,7 +47,9 @@ class ExerciceAddBloc extends Bloc<ExerciceAddEvent, ExerciceAddState> {
     emit(ExerciceAddInitial(null, gif: null, groupValue: 'Count'));
   }
 
-  FutureOr<void> exerciseEditEvent(ExerciseEditEvent event, Emitter<ExerciceAddState> emit) {
-     emit(ExerciceAddInitial(event.image, gif: null, groupValue: event.groupValue));
+  FutureOr<void> exerciseEditEvent(
+      ExerciseEditEvent event, Emitter<ExerciceAddState> emit) {
+    emit(ExerciceAddInitial(event.image,
+        gif: null, groupValue: event.groupValue));
   }
 }

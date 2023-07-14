@@ -11,12 +11,16 @@ class CustomAlertBox extends StatelessWidget {
     super.key,
     required this.screenHeight,
     this.image,
-    required this.category, this.exercise,this.categoryModel, this.ontap, required this.content,
+    required this.category,
+    this.exercise,
+    this.categoryModel,
+    this.ontap,
+    required this.content,
   });
   final ButtonCategory category;
   final double screenHeight;
   final ImageModel? image;
-  final Exercise?exercise;
+  final Exercise? exercise;
   final CategoryModel? categoryModel;
   final Function? ontap;
   final String content;
@@ -41,7 +45,9 @@ class CustomAlertBox extends StatelessWidget {
                         topEnd: Radius.circular(7)),
                     image: DecorationImage(
                       image: NetworkImage(
-                        image?.image ??exercise?.demo??categoryModel?.image??
+                        image?.image ??
+                            exercise?.demo ??
+                            categoryModel?.image ??
                             'https://manofmany.com/wp-content/uploads/2021/07/No-Equipment-Home-Workout-2.jpg',
                       ),
                       fit: BoxFit.fill,
@@ -52,19 +58,19 @@ class CustomAlertBox extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 8, top: screenHeight / 7),
-                  child:  SizedBox(
+                  child: SizedBox(
                     height: 50,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                      const  Text(
+                        const Text(
                           'Delete ?',
                           style: TextStyle(
                               fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Are you sure to delete this $content?',
-                          style:const TextStyle(
+                          style: const TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 232, 240, 8),
@@ -80,8 +86,8 @@ class CustomAlertBox extends StatelessWidget {
             PrimartButtonWithoutIcon(
               screenHeight: screenHeight,
               category: category,
-              id: image?.id??exercise?.id??categoryModel?.id,
-              ontap:ontap ,
+              id: image?.id ?? exercise?.id ?? categoryModel?.id,
+              ontap: ontap,
             ),
             spaceforHeight10,
             InkWell(

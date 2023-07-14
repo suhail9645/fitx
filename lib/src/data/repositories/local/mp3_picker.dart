@@ -9,13 +9,14 @@ class Mp3PickerOperations {
       type: FileType.custom,
       allowedExtensions: ['mp3'],
     );
-    if(result!=null){
-     if(result.names[0]!.split('.').last=='mp3'){
-      return File(result.paths[0]!);
-     }else{
-    // ignore: use_build_context_synchronously
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please select a Mp3 file')));
-     }
+    if (result != null) {
+      if (result.names[0]!.split('.').last == 'mp3') {
+        return File(result.paths[0]!);
+      } else {
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Please select a Mp3 file')));
+      }
     }
     return null;
   }

@@ -2,8 +2,6 @@ part of 'check_box_cubit.dart';
 
 abstract class CheckBoxState {
   const CheckBoxState();
-
-  
 }
 
 class CheckBoxInitial extends CheckBoxState {
@@ -11,4 +9,3 @@ class CheckBoxInitial extends CheckBoxState {
 
   CheckBoxInitial({required this.isCheck});
 }
-

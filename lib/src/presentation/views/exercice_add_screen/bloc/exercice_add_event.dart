@@ -18,9 +18,9 @@ class TimeAndCountChangeEvent extends ExerciceAddEvent {
 
 class ExerciseAddSuccess extends ExerciceAddEvent {}
 
-class ExerciseEditEvent extends ExerciceAddEvent{
+class ExerciseEditEvent extends ExerciceAddEvent {
   final String image;
   final String groupValue;
 
-  ExerciseEditEvent({required this.image,required this.groupValue});
+  ExerciseEditEvent({required this.image, required this.groupValue});
 }

@@ -1,4 +1,3 @@
-
 import 'package:fitx/src/presentation/views/category_screen/category.dart';
 
 import 'category_add_barell.dart';
@@ -36,9 +35,8 @@ class _CategoryAddPageState extends State<CategoryAddPage> {
     super.initState();
   }
 
-
   // File? image;
-  
+
   // File? image;
 
   @override
@@ -125,8 +123,11 @@ class _CategoryAddPageState extends State<CategoryAddPage> {
             BlocListener<CategoryBloc, CategoryState>(
               listener: (context, state) {
                 if (state is CategoryAddedSuccessState) {
-                  ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(contant: 'new category added ') );
-                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CategoryPage(),));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      CustomSnackBar(contant: 'new category added '));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => CategoryPage(),
+                  ));
                 }
               },
               child: PrimartButtonWithoutIcon(
@@ -143,9 +144,11 @@ class _CategoryAddPageState extends State<CategoryAddPage> {
                         controllers: categoryAddPageTextEditingControllers,
                         exerciseid: listId));
                   } else if (music == null) {
-                    ScaffoldMessenger.of(context).showSnackBar( CustomSnackBar(contant: 'Please add a music file'));
-                  }else if (image == null) {
-                    ScaffoldMessenger.of(context).showSnackBar( CustomSnackBar(contant: 'Please add a image file'));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        CustomSnackBar(contant: 'Please add a music file'));
+                  } else if (image == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        CustomSnackBar(contant: 'Please add a image file'));
                   }
                 },
               ),
@@ -156,10 +159,10 @@ class _CategoryAddPageState extends State<CategoryAddPage> {
       )),
     );
   }
+
   @override
   void dispose() {
     categoryaddBloc.add(CategoryAddPagePopEvent());
     super.dispose();
   }
 }
-

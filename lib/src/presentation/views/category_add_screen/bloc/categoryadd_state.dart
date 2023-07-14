@@ -12,5 +12,3 @@ class AddImageState extends CategoryaddState {
 }
 
 class SaveCategoryState extends CategoryaddState {}
-
-

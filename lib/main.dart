@@ -10,6 +10,7 @@ import 'package:fitx/src/presentation/views/image_screen/bloc/image_bloc.dart';
 import 'package:fitx/src/presentation/views/login_screen/bloc/login_bloc.dart';
 import 'package:fitx/src/presentation/views/splash_screen/bloc/splash_bloc.dart';
 import 'package:fitx/src/presentation/views/splash_screen/splash.dart';
+import 'package:fitx/src/presentation/views/trainer_screen/bloc/trainer_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +33,8 @@ AddImageBloc addImageBloc = AddImageBloc();
 ExerciseBloc exerciceBloc = ExerciseBloc();
 CheckBoxCubit checkBoxCubit = CheckBoxCubit();
 FilePickerCubit filePickerCubit = FilePickerCubit();
-CategoryBloc categoryBloc=CategoryBloc();
+CategoryBloc categoryBloc = CategoryBloc();
+TrainerBloc trainerBloc=TrainerBloc();
 // FilePickerCubit filePickerCubit=FilePickerCubit();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -76,7 +78,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => categoryBloc,
-        )
+        ),
+         BlocProvider(
+          create: (context) => trainerBloc,
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

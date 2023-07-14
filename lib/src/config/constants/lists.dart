@@ -76,8 +76,9 @@ List<String> muscleList = [
 
 List<String> trainerDetailes = [
   'Name',
-  'Age',
+  'DateOfBirth',
   'Gender',
   'Experience',
-  'Cirtificates'
+  'PhoneNumber',
+  'Email',
 ];

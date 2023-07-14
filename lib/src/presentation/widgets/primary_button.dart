@@ -21,7 +21,8 @@ class PrimartButtonWithoutIcon extends StatelessWidget {
       this.formKey,
       this.image,
       this.id,
-      this.groupValue, this.ontap});
+      this.groupValue,
+      this.ontap});
 
   final double screenHeight;
   final ButtonCategory category;
@@ -81,8 +82,7 @@ class PrimartButtonWithoutIcon extends StatelessWidget {
     } else if (category == ButtonCategory.deleteImage) {
       width = 6;
       text = 'Delete';
-    }
-    else if (category == ButtonCategory.deleteExercice) {
+    } else if (category == ButtonCategory.deleteExercice) {
       width = 6;
       text = 'Delete';
     }
@@ -95,11 +95,11 @@ class PrimartButtonWithoutIcon extends StatelessWidget {
               category == ButtonCategory.edit) {
             addImageBloc.add(AddImageButtonClickedEvent());
           } else if (category == ButtonCategory.addCategory) {
-           ontap!();
+            ontap!();
           } else if (category == ButtonCategory.addCategoryImage) {
             categoryaddBloc.add(AddImageCategoryEvent());
           } else if (category == ButtonCategory.saveCategory) {
-           ontap!();
+            ontap!();
           } else if (category == ButtonCategory.logoutAdmin) {
             showDialog(
               context: context,
@@ -124,11 +124,10 @@ class PrimartButtonWithoutIcon extends StatelessWidget {
           } else if (category == ButtonCategory.deleteImage) {
             imageBloc.add(ImageDeleteEvent(id: id!));
             Navigator.of(context).pop();
-          }
-          else if (category == ButtonCategory.deleteExercice) {
+          } else if (category == ButtonCategory.deleteExercice) {
             exerciceBloc.add(ExerciseDeleteEvent(id: id!));
             Navigator.of(context).pop();
-          }else if(category==ButtonCategory.deletCategory){
+          } else if (category == ButtonCategory.deletCategory) {
             ontap!();
           }
         },

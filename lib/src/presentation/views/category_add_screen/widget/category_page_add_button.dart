@@ -1,4 +1,3 @@
-
 import '../category_add_barell.dart';
 
 class CategoryAddButton extends StatelessWidget {
@@ -24,11 +23,11 @@ class CategoryAddButton extends StatelessWidget {
     return BlocListener<CategoryBloc, CategoryState>(
       listener: (context, state) {
         if (state is CategoryAddedSuccessState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              CustomSnackBar(contant: 'new category added '));
-        }else if(state is CategoryUpdateSuccessState){
-          ScaffoldMessenger.of(context).showSnackBar(
-              CustomSnackBar(contant: 'category updated'));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(CustomSnackBar(contant: 'new category added '));
+        } else if (state is CategoryUpdateSuccessState) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(CustomSnackBar(contant: 'category updated'));
           Navigator.of(context).pop();
         }
       },

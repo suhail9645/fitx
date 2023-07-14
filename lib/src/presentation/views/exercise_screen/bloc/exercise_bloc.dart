@@ -34,29 +34,31 @@ class ExerciseBloc extends Bloc<ExerciseEvent, ExerciseState> {
   }
 
   FutureOr<void> exerciseInitialEvent(
-      ExerciseInitialEvent event, Emitter<ExerciseState> emit)async {
-        emit(ExercisePageLoadingState());
-        final response=await ExerciseOperationsImp().getAllExercises();
-        if(response.isRight){
-          emit(ExerciseInitial(exercises: response.right));
-        }else{
-          emit(ExercisePageErrorState());
-        }
-      }
+      ExerciseInitialEvent event, Emitter<ExerciseState> emit) async {
+    emit(ExercisePageLoadingState());
+    final response = await ExerciseOperationsImp().getAllExercises();
+    if (response.isRight) {
+      emit(ExerciseInitial(exercises: response.right));
+    } else {
+      emit(ExercisePageErrorState());
+    }
+  }
 
-  FutureOr<void> exerciseDeleteEvent(ExerciseDeleteEvent event, Emitter<ExerciseState> emit)async {
-    final response=await ExerciseOperationsImp().deleteExercise(event.id);
-    if(response.isRight){
+  FutureOr<void> exerciseDeleteEvent(
+      ExerciseDeleteEvent event, Emitter<ExerciseState> emit) async {
+    final response = await ExerciseOperationsImp().deleteExercise(event.id);
+    if (response.isRight) {
       emit(DeleteSuccessState());
       exerciceBloc.add(ExerciseInitialEvent());
     }
-  
   }
 
-  FutureOr<void> exerciseEditEventMain(ExerciseEditEventMain event, Emitter<ExerciseState> emit) async{
-  final response=await ExerciseOperationsImp().updateExercise(event.exercise, event.groupValue,event.id);
-  if(response.isRight){
-    emit(EditSuccessState());
-  }
+  FutureOr<void> exerciseEditEventMain(
+      ExerciseEditEventMain event, Emitter<ExerciseState> emit) async {
+    final response = await ExerciseOperationsImp()
+        .updateExercise(event.exercise, event.groupValue, event.id);
+    if (response.isRight) {
+      emit(EditSuccessState());
+    }
   }
 }

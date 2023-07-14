@@ -19,14 +19,14 @@ class ExerciseInitialEvent extends ExerciseEvent {}
 class ExerciseDeleteEvent extends ExerciseEvent {
   final int id;
 
- const ExerciseDeleteEvent({required this.id});
-
+  const ExerciseDeleteEvent({required this.id});
 }
+
 class ExerciseEditEventMain extends ExerciseEvent {
-final int id;
-final String groupValue;
-final Exercise exercise;
+  final int id;
+  final String groupValue;
+  final Exercise exercise;
 
-  ExerciseEditEventMain({required this.id,required this.groupValue,required this.exercise});
-
+  ExerciseEditEventMain(
+      {required this.id, required this.groupValue, required this.exercise});
 }

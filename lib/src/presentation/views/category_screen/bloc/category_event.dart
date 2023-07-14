@@ -1,9 +1,6 @@
 part of 'category_bloc.dart';
 
-abstract class CategoryEvent {
-  
-
-}
+abstract class CategoryEvent {}
 
 class CategoryAddEvent extends CategoryEvent {
   final File image;
@@ -16,14 +13,14 @@ class CategoryAddEvent extends CategoryEvent {
       required this.music,
       required this.controllers,
       required this.exerciseid});
-
 }
+
 class CategoryEditEvent extends CategoryEvent {
   final File? image;
   final File? music;
   final List<TextEditingController> controllers;
   final List<int> exerciseid;
-  final int  id;
+  final int id;
 
   CategoryEditEvent(
       {required this.image,
@@ -31,14 +28,12 @@ class CategoryEditEvent extends CategoryEvent {
       required this.controllers,
       required this.exerciseid,
       required this.id});
-
 }
-class CategoryInitialEvent extends CategoryEvent{
 
-}
-class CategoryDeleteEvent extends CategoryEvent{
+class CategoryInitialEvent extends CategoryEvent {}
+
+class CategoryDeleteEvent extends CategoryEvent {
   final int id;
 
   CategoryDeleteEvent({required this.id});
-
 }

@@ -80,7 +80,10 @@ class CategoryOperationImp extends CategoryOperation {
       CategoryModel categoryModel = CategoryModel.fromJson(data);
       for (var element in ids) {
         await http.patch(
-            Uri.parse('${baseUrl}category/${categoryModel.id}/add/$element/'),headers: {'Authorization': 'Bearer $access',});
+            Uri.parse('${baseUrl}category/${categoryModel.id}/add/$element/'),
+            headers: {
+              'Authorization': 'Bearer $access',
+            });
       }
     }
     return res;
@@ -266,15 +269,17 @@ class CategoryOperationImp extends CategoryOperation {
           .exerciseFilterFromBody(exerciseResponse, access);
 
       for (var element in exercises) {
-        await http
-            .patch(Uri.parse('${baseUrl}category/$id/remove/${element.id}/'),headers: {
-        'Authorization': 'Bearer $access',
-      });
+        await http.patch(
+            Uri.parse('${baseUrl}category/$id/remove/${element.id}/'),
+            headers: {
+              'Authorization': 'Bearer $access',
+            });
       }
       for (var element in ids) {
-        await http.patch(Uri.parse('${baseUrl}category/$id/add/$element/'),headers: {
-        'Authorization': 'Bearer $access',
-      });
+        await http
+            .patch(Uri.parse('${baseUrl}category/$id/add/$element/'), headers: {
+          'Authorization': 'Bearer $access',
+        });
       }
     }
     return res;

@@ -1,10 +1,9 @@
-
 import 'package:fitx/src/domain/model/exercise/exercise.dart';
 import 'package:flutter/material.dart';
 
 class ConvertExerciseObject {
   Exercise converting(List<TextEditingController> controllers, dynamic gif,
-      String timeOrCount)  {
+      String timeOrCount) {
     return (Exercise(
         id: null,
         name: controllers[0].text,

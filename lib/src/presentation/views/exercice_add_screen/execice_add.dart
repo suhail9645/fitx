@@ -126,7 +126,7 @@ class _ExerciceAddPageState extends State<ExerciceAddPage> {
                   } else if (state is EditSuccessState) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('SuccessFully edited new Exercise')));
-                        Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                   }
                 },
                 builder: (context, state) {

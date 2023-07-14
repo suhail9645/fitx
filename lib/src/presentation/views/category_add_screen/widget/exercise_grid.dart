@@ -12,7 +12,7 @@ class CategoryAddPageExercises extends StatelessWidget {
   });
 
   final List<int> listId;
-  
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ExerciseBloc, ExerciseState>(
@@ -27,8 +27,8 @@ class CategoryAddPageExercises extends StatelessWidget {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3, mainAxisSpacing: 4, crossAxisSpacing: 4),
               itemBuilder: (context, index) {
-                if(listId.contains(state.exercises[index].id)){
-                     checkBoxCubit.onChanged(true, index);
+                if (listId.contains(state.exercises[index].id)) {
+                  checkBoxCubit.onChanged(true, index);
                 }
                 return Container(
                   decoration: BoxDecoration(

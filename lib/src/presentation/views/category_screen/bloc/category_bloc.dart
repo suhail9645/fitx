@@ -17,46 +17,54 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     on<CategoryEditEvent>(categoryEditEvent);
   }
 
-  FutureOr<void> categoryAddEvent(CategoryAddEvent event, Emitter<CategoryState> emit) async{
-    final response=await CategoryOperationImp().categoryAdd(event.controllers,event.image,event. music,event.exerciseid);
-    if(response.isRight){
+  FutureOr<void> categoryAddEvent(
+      CategoryAddEvent event, Emitter<CategoryState> emit) async {
+    final response = await CategoryOperationImp().categoryAdd(
+        event.controllers, event.image, event.music, event.exerciseid);
+    if (response.isRight) {
       checkBoxCubit.onSavedCategory();
       categoryaddBloc.add(SaveSuccessCategoryEvent());
-      
-      emit(CategoryAddedSuccessState());
-    }else {
-       emit(CategoryAddedErrorState(error: response.left.error));
-    }
 
+      emit(CategoryAddedSuccessState());
+    } else {
+      emit(CategoryAddedErrorState(error: response.left.error));
+    }
   }
 
-  FutureOr<void> categoryInitialEvent(CategoryInitialEvent event, Emitter<CategoryState> emit)async {
+  FutureOr<void> categoryInitialEvent(
+      CategoryInitialEvent event, Emitter<CategoryState> emit) async {
     emit(CategoryLoadingState());
-    final response=await CategoryOperationImp().getAllCategories();
-    if(response.isRight){
+    final response = await CategoryOperationImp().getAllCategories();
+    if (response.isRight) {
       emit(CategorySuccessState(categories: response.right));
-    }else{
+    } else {
       emit(CategoryErrorState());
     }
   }
 
-  FutureOr<void> categoryDeleteEvent(CategoryDeleteEvent event, Emitter<CategoryState> emit)async {
-    final response=await CategoryOperationImp().deleteCategory(event.id);
-    if(response.isRight){
+  FutureOr<void> categoryDeleteEvent(
+      CategoryDeleteEvent event, Emitter<CategoryState> emit) async {
+    final response = await CategoryOperationImp().deleteCategory(event.id);
+    if (response.isRight) {
       emit(CategoryDeleteSuccessState());
       categoryBloc.add(CategoryInitialEvent());
-    }else{
+    } else {
       emit(CategoryErrorState());
     }
   }
 
-  FutureOr<void> categoryEditEvent(CategoryEditEvent event, Emitter<CategoryState> emit)async {
-    final response=await CategoryOperationImp().updateCategory(event.controllers, event.id,event.image,event.music,event.exerciseid);
-    if(response.isRight){
+  FutureOr<void> categoryEditEvent(
+      CategoryEditEvent event, Emitter<CategoryState> emit) async {
+    final response = await CategoryOperationImp().updateCategory(
+        event.controllers,
+        event.id,
+        event.image,
+        event.music,
+        event.exerciseid);
+    if (response.isRight) {
       emit(CategoryUpdateSuccessState());
       categoryBloc.add(CategoryInitialEvent());
-    }
-    else{
+    } else {
       emit(CategoryErrorState());
     }
   }
