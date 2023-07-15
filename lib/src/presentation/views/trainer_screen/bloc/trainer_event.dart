@@ -4,6 +4,14 @@ abstract class TrainerEvent {}
 
 class TrainerInitialEvent extends TrainerEvent {}
 
-class TrainerAcceptEvent extends TrainerEvent {}
+class TrainerAcceptEvent extends TrainerEvent {
+  final int id;
 
-class TrainerRejectEvent extends TrainerEvent {}
+  TrainerAcceptEvent({required this.id});
+}
+
+class TrainerRejectEvent extends TrainerEvent {
+  final int id;
+
+  TrainerRejectEvent({required this.id});
+}

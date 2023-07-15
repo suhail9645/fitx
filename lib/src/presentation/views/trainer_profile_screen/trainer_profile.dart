@@ -2,6 +2,7 @@ import 'package:fitx/src/config/constants/lists.dart';
 import 'package:fitx/src/config/enums/enums.dart';
 import 'package:fitx/src/domain/model/trainer_list/result.dart';
 import 'package:fitx/src/presentation/views/login_screen/login_screen.dart';
+import 'package:fitx/src/presentation/views/trainer_screen/bloc/trainer_bloc.dart';
 import 'package:fitx/src/presentation/views/trainer_screen/trainer.dart';
 import 'package:fitx/src/presentation/widgets/primary_button.dart';
 
@@ -86,7 +87,9 @@ class TrainerProfileScreen extends StatelessWidget {
                           margin: const EdgeInsets.only(right: 10),
                           width: screenHeight * 0.14,
                           decoration: BoxDecoration(
-                            image: DecorationImage(image: NetworkImage(trainer.certificates![index].file!)),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      trainer.certificates![index].file!)),
                               border: Border.all(
                                 color: Colors.white,
                               ),
@@ -98,17 +101,29 @@ class TrainerProfileScreen extends StatelessWidget {
                 ),
               ),
               spaceforHeight20,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                TrainerElevatedButton(color: Colors.green, height: 40,width: 130, onTap: () {
-                  
-                }, text:'Accept Trainer'),
-                 TrainerElevatedButton(color: Colors.red,height: 40,width: 130, onTap: () {
-              
-            }, text:'Reject Trainer')
-              ],
-            ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TrainerElevatedButton(
+                      color: Colors.green,
+                      height: 40,
+                      width: 130,
+                      onTap: () {
+                        trainerBloc.add(TrainerAcceptEvent(id: trainer.id!));
+                        Navigator.pop(context);
+                      },
+                      text: 'Accept Trainer'),
+                  TrainerElevatedButton(
+                      color: Colors.red,
+                      height: 40,
+                      width: 130,
+                      onTap: () {
+                        trainerBloc.add(TrainerRejectEvent(id: trainer.id!));
+                        Navigator.pop(context);
+                      },
+                      text: 'Reject Trainer')
+                ],
+              ),
               spaceforHeight20,
             ],
           ),

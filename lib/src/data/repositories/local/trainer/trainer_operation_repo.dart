@@ -7,35 +7,50 @@ import 'package:fitx/src/domain/model/trainer_list/result.dart';
 import 'package:fitx/src/domain/model/trainer_list/trainer_list.dart';
 import 'package:http/http.dart';
 
-class TrainerRepo{
-  Future<Either<ErrorModel,List<Result>>>getAllTrainers()async{
-   try{
-  final responseOrError=await TrainerOperationImp().fetchAllTrainers();
-  if(responseOrError.isRight){
-    Response response=responseOrError.right;
-    List<Result>allApplication=[];
-    while(true){
-      Map<String,dynamic>data=jsonDecode(response.body);
-      TrainerList trainerList=TrainerList.fromJson(data);
-      for (Result element in trainerList.results??[]) {
-        allApplication.add(element);
-      }
-      if(trainerList.next!=null){
-        final responOrError=await TrainerOperationImp().trainersFetchHelper(trainerList.next);
-        if(responOrError.isRight){
-          response=responOrError.right;
+class TrainerRepo {
+  Future<Either<ErrorModel, List<Result>>> getAllTrainers() async {
+    try {
+      final responseOrError = await TrainerOperationImp().fetchAllTrainers();
+      if (responseOrError.isRight) {
+        Response response = responseOrError.right;
+        List<Result> allApplication = [];
+        while (true) {
+          Map<String, dynamic> data = jsonDecode(response.body);
+          TrainerList trainerList = TrainerList.fromJson(data);
+          for (Result element in trainerList.results ?? []) {
+            allApplication.add(element);
+          }
+          if (trainerList.next != null) {
+            final responOrError = await TrainerOperationImp()
+                .trainersFetchHelper(trainerList.next);
+            if (responOrError.isRight) {
+              response = responOrError.right;
+            }
+          } else {
+            return Right(allApplication);
+          }
         }
-      }else{
-         return Right(allApplication);
+      } else {
+        return Left(responseOrError.left);
       }
+    } catch (e) {
+      return Left(ErrorModel(e.toString()));
     }
-   
   }
-  else{
-      return Left(responseOrError.left);
+
+  Future<Either<ErrorModel, String>> trainerAcceptAndReject(
+      int id, String acceptOrReject) async {
+    try {
+      final errorOrSuccess = await TrainerOperationImp()
+          .trainereAcceptAndReject(id, acceptOrReject);
+      if (errorOrSuccess.isRight) {
+        String successMessage = jsonDecode(errorOrSuccess.right.body)['detail'];
+        return Right(successMessage);
+      } else {
+        return Left(errorOrSuccess.left);
+      }
+    } catch (e) {
+      return Left(ErrorModel(e.toString()));
     }
-   }catch(e){
-    return Left(ErrorModel(e.toString()));
-   }
   }
 }

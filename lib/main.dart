@@ -8,6 +8,7 @@ import 'package:fitx/src/presentation/views/home_screen/cubit/home_cubit.dart';
 import 'package:fitx/src/presentation/views/image_screen/bloc/add_image_bloc.dart';
 import 'package:fitx/src/presentation/views/image_screen/bloc/image_bloc.dart';
 import 'package:fitx/src/presentation/views/login_screen/bloc/login_bloc.dart';
+import 'package:fitx/src/presentation/views/message_screen/bloc/message_bloc.dart';
 import 'package:fitx/src/presentation/views/splash_screen/bloc/splash_bloc.dart';
 import 'package:fitx/src/presentation/views/splash_screen/splash.dart';
 import 'package:fitx/src/presentation/views/trainer_screen/bloc/trainer_bloc.dart';
@@ -16,6 +17,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:web_socket_channel/status.dart' as status;
 
 void main() async {
   await dotenv.load();
@@ -34,7 +37,9 @@ ExerciseBloc exerciceBloc = ExerciseBloc();
 CheckBoxCubit checkBoxCubit = CheckBoxCubit();
 FilePickerCubit filePickerCubit = FilePickerCubit();
 CategoryBloc categoryBloc = CategoryBloc();
-TrainerBloc trainerBloc=TrainerBloc();
+TrainerBloc trainerBloc = TrainerBloc();
+MessageBloc messageBloc=MessageBloc();
+//  WebSocketChannel channel = WebSocketChannel.connect(Uri.parse('ws://10.4.4.26:8000/ws/messages/'));
 // FilePickerCubit filePickerCubit=FilePickerCubit();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -79,8 +84,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => categoryBloc,
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => trainerBloc,
+        ),
+           BlocProvider(
+          create: (context) => messageBloc,
         ),
       ],
       child: MaterialApp(

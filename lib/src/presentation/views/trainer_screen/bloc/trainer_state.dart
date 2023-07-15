@@ -5,7 +5,7 @@ abstract class TrainerState {}
 class TrainerInitial extends TrainerState {}
 
 class TrainerFetchSuccessState extends TrainerState {
-  final List<Result>allApplication;
+  final List<Result> allApplication;
 
   TrainerFetchSuccessState({required this.allApplication});
 }
@@ -17,3 +17,9 @@ class TrainerFetchErrorState extends TrainerState {
 }
 
 class TrainerFetchLoadingState extends TrainerState {}
+
+class TrinerAcceptOrRejectMessageState extends TrainerState {
+  final String message;
+
+  TrinerAcceptOrRejectMessageState({required this.message});
+}
